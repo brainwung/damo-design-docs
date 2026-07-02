@@ -282,6 +282,14 @@
         min-width: 0;
       }
 
+      .swatch-usage {
+        margin: 0 0 6px;
+        color: var(--text-title);
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 1.5;
+      }
+
       .chip {
         position: relative;
         display: flex;
@@ -605,8 +613,11 @@
                 <li><a href="#extension">拓展色</a></li>
                 <li><a href="#member">会员</a></li>
                 <li><a href="#qa">问答</a></li>
+                <li><a href="#post">晒物</a></li>
+                <li><a href="#wiki">百科</a></li>
                 <li><a href="#ranking">排名</a></li>
                 <li><a href="#tag">标签</a></li>
+                <li><a href="#bubble">红点气泡</a></li>
               </ul>
             </div>
 
@@ -798,14 +809,28 @@
         },
         {
           id: "qa",
-          title: "问答 / 晒物 / 百科",
-          desc: "内容业务线的识别色与弱背景。",
+          title: "问答",
+          desc: "问答业务线的识别色与弱背景。",
           colors: [
             ["#E62828—#F95F42", "问答", "linear-gradient(153deg, #e62828, #f95f42)"],
             ["#409CF9—#007EFF", "问答", "linear-gradient(153deg, #409cf9, #007eff)"],
             ["#E6F2FE", "问答", "#e6f2fe", "#1b8bfd"],
+          ],
+        },
+        {
+          id: "post",
+          title: "晒物",
+          desc: "晒物业务线的识别色与弱背景。",
+          colors: [
             ["#FD7807", "晒物相关", "#fd7807"],
             ["#FFF4E7", "晒物相关", "#fff4e7", "#fd7807"],
+          ],
+        },
+        {
+          id: "wiki",
+          title: "百科",
+          desc: "百科业务线的识别色与弱背景。",
+          colors: [
             ["#4D73C5", "百科相关", "#4d73c5"],
             ["#F1F5FE", "百科相关", "#f1f5fe", "#4d73c5"],
           ],
@@ -822,13 +847,20 @@
         },
         {
           id: "tag",
-          title: "标签 / 红点气泡",
-          desc: "类型角标、提醒气泡与特殊标签。",
+          title: "标签",
+          desc: "类型角标与特殊标签。",
           colors: [
             ["#E62828 Alpha 0.8", "类型角标-红色标签背景", "rgba(230,40,40,0.8)"],
             ["#2B6EC8 Alpha 0.8", "类型角标-蓝色标签背景", "rgba(43,110,200,0.8)"],
             ["#F76525 Alpha 0.8", "类型角标-橙色标签背景", "rgba(247,101,37,0.8)"],
             ["#FAC661 Alpha 0.8", "类型角标-黄色标签背景", "rgba(250,198,97,0.8)", "#8c5a00"],
+          ],
+        },
+        {
+          id: "bubble",
+          title: "红点气泡",
+          desc: "提醒气泡背景。",
+          colors: [
             ["#FE3F00", "红点气泡背景", "#fe3f00"],
           ],
         },
@@ -935,11 +967,34 @@
           .replace(/#[0-9a-f]{3,8}/gi, (hex) => hex.toLowerCase());
       }
 
+      const textColorUsage = {
+        "@color-text-title": "主标题",
+        "@color-text-subtitle": "副标题",
+        "@color-text-description": "描述信息",
+        "@color-text-weak": "弱文案",
+        "@color-text-base": "白色",
+        "@color-text-stress": "强调色",
+        "@color-text-link": "链接色",
+      };
+
+      function getSwatchUsage(token) {
+        const tokenName = String(token).split(":")[0].trim();
+        return textColorUsage[tokenName] || "";
+      }
+
       function renderSwatch([label, token, fill, labelColor, hasBorder]) {
         const swatch = document.createElement("article");
         swatch.className = "swatch";
         const displayLabel = formatColorValue(label);
         const displayToken = formatColorValue(token);
+        const usage = getSwatchUsage(token);
+
+        if (usage) {
+          const usageText = document.createElement("p");
+          usageText.className = "swatch-usage";
+          usageText.textContent = usage;
+          swatch.appendChild(usageText);
+        }
 
         const chip = document.createElement("div");
         chip.className = `chip${hasBorder ? " has-border" : ""}`;
