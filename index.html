@@ -457,23 +457,28 @@
 
       .toast {
         position: fixed;
-        right: 24px;
-        bottom: 24px;
-        z-index: 30;
-        padding: 12px;
+        top: 50%;
+        left: 50%;
+        z-index: 120;
+        min-width: 180px;
+        padding: 18px 24px;
         border-radius: 6px;
         color: #ffffff;
-        background: rgba(0, 0, 0, 0.78);
-        font-size: 13px;
+        background: rgba(0, 0, 0, 0.86);
+        box-shadow: 0 12px 36px rgba(0, 0, 0, 0.18);
+        font-size: 15px;
+        font-weight: 700;
+        line-height: 1.4;
+        text-align: center;
         opacity: 0;
-        transform: translateY(6px);
+        transform: translate(-50%, -44%) scale(0.96);
         transition: opacity 180ms ease, transform 180ms ease;
         pointer-events: none;
       }
 
       .toast.is-visible {
         opacity: 1;
-        transform: translateY(0);
+        transform: translate(-50%, -50%) scale(1);
       }
 
       @media (max-width: 900px) {
@@ -644,7 +649,7 @@
       </main>
     </div>
 
-    <div class="toast" role="status" aria-live="polite">已复制</div>
+    <div class="toast" role="status" aria-live="polite">复制完成</div>
 
     <script>
       const sections = [
@@ -902,7 +907,7 @@
         await navigator.clipboard.writeText(value);
         toast.classList.add("is-visible");
         window.clearTimeout(toastTimer);
-        toastTimer = window.setTimeout(() => toast.classList.remove("is-visible"), 1200);
+        toastTimer = window.setTimeout(() => toast.classList.remove("is-visible"), 1500);
       }
 
       function rgbToHex(r, g, b) {
