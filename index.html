@@ -457,7 +457,7 @@
 
       .toast {
         position: fixed;
-        top: 50%;
+        bottom: 48px;
         left: 50%;
         z-index: 120;
         min-width: 180px;
@@ -471,14 +471,14 @@
         line-height: 1.4;
         text-align: center;
         opacity: 0;
-        transform: translate(-50%, -44%) scale(0.96);
+        transform: translate(-50%, 6px) scale(0.96);
         transition: opacity 180ms ease, transform 180ms ease;
         pointer-events: none;
       }
 
       .toast.is-visible {
         opacity: 1;
-        transform: translate(-50%, -50%) scale(1);
+        transform: translate(-50%, 0) scale(1);
       }
 
       @media (max-width: 900px) {
