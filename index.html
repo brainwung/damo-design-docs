@@ -1,0 +1,1092 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>DaMo Design System - Color</title>
+    <style>
+      :root {
+        --brand: #e62828;
+        --brand-weak: #ffedeb;
+        --text-title: #333333;
+        --text-subtitle: #666666;
+        --text-desc: #999999;
+        --text-link: #447dbd;
+        --line: #eeeeee;
+        --page: #ffffff;
+        --panel: #fafafa;
+        --container: 1140px;
+        --sidebar: 220px;
+        --topbar: 80px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        color: var(--text-title);
+        background: var(--page);
+        font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC",
+          "Microsoft YaHei", sans-serif;
+      }
+
+      button,
+      input {
+        font: inherit;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        height: var(--topbar);
+        background: #ffffff;
+      }
+
+      .topbar-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: min(100%, var(--container));
+        height: var(--topbar);
+        margin: 0 auto;
+        border-bottom: 1px solid #dcdfe6;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+      }
+
+      .brand-logo {
+        display: block;
+        width: 146px;
+        height: 38px;
+        object-fit: contain;
+      }
+
+      .topnav {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        font-size: 14px;
+      }
+
+      .topnav a {
+        position: relative;
+        display: flex;
+        align-items: center;
+        height: 100%;
+        padding: 0 24px;
+        color: var(--text-title);
+        font-weight: 400;
+        opacity: 1;
+        text-decoration: none;
+      }
+
+      .topnav a:hover,
+      .topnav a.is-active {
+        color: var(--brand);
+      }
+
+      .topnav a.is-active {
+        font-weight: 700;
+      }
+
+      .layout {
+        display: grid;
+        grid-template-columns: var(--sidebar) minmax(0, 1fr);
+        gap: 54px;
+        width: min(100%, var(--container));
+        margin: 0 auto;
+        min-height: calc(100vh - var(--topbar));
+      }
+
+      .sidebar {
+        position: sticky;
+        top: var(--topbar);
+        height: calc(100vh - var(--topbar));
+        padding: 54px 30px 42px 0;
+        overflow: auto;
+        background: #ffffff;
+      }
+
+      .side-nav {
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      .side-primary-link {
+        display: block;
+        height: 40px;
+        margin: 0;
+        padding: 0;
+        color: var(--text-title);
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 40px;
+        text-align: left;
+        text-decoration: none;
+        transition: color 150ms ease-out;
+      }
+
+      .side-primary-link:hover,
+      .side-primary-link.is-active {
+        color: var(--text-title);
+      }
+
+      .side-secondary {
+        padding-left: 0;
+      }
+
+      .side-section {
+        margin-top: 18px;
+      }
+
+      .side-section:first-child {
+        margin-top: 0;
+      }
+
+      .side-section-title {
+        margin: 18px 0 0;
+        color: var(--text-desc);
+        font-size: 12px;
+        line-height: 26px;
+      }
+
+      .sidenav {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        overflow: hidden;
+      }
+
+      .sidenav a {
+        display: block;
+        height: 34px;
+        margin: 0;
+        padding: 0;
+        color: var(--text-subtitle);
+        font-size: 14px;
+        line-height: 34px;
+        overflow: hidden;
+        text-decoration: none;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        transition: color 150ms ease-out;
+      }
+
+      .sidenav a:hover,
+      .sidenav a.is-active {
+        color: var(--brand);
+      }
+
+      .main {
+        min-width: 0;
+        padding: 54px 0 90px;
+      }
+
+      .doc-header {
+        margin-bottom: 42px;
+      }
+
+      .doc-header p {
+        margin: 12px 0 0;
+        max-width: none;
+        color: var(--text-subtitle);
+        font-size: 14px;
+        line-height: 1.7;
+      }
+
+      .doc-title {
+        margin: 0;
+        color: var(--text-title);
+        font-size: 28px;
+        font-weight: 400;
+        line-height: 1;
+      }
+
+      .doc-meta {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        width: 100%;
+        margin-top: 24px;
+        padding: 6px 18px;
+        border-left: 5px solid var(--brand);
+        border-radius: 4px;
+        color: var(--text-subtitle);
+        background: var(--brand-weak);
+        font-size: 13px;
+      }
+
+      .content {
+        display: grid;
+        gap: 48px;
+      }
+
+      .token-section {
+        scroll-margin-top: 108px;
+      }
+
+      .section-title {
+        margin-bottom: 18px;
+      }
+
+      .section-title h2 {
+        margin: 0;
+        color: var(--text-title);
+        font-size: 22px;
+        font-weight: 400;
+        line-height: 1.35;
+      }
+
+      .section-title p {
+        margin: 12px 0 0;
+        color: var(--text-subtitle);
+        font-size: 14px;
+        line-height: 1.6;
+      }
+
+      .swatch-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 36px;
+        min-width: 0;
+      }
+
+      .series-grid {
+        display: grid;
+        gap: 48px;
+        min-width: 0;
+      }
+
+      .color-series {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 36px;
+        min-width: 0;
+      }
+
+      .color-series .swatch {
+        margin: 0;
+      }
+
+      .swatch {
+        min-width: 0;
+      }
+
+      .chip {
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+        min-height: 96px;
+        padding: 12px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        background: var(--fill);
+        overflow: hidden;
+      }
+
+      .chip.has-border {
+        border-color: #cccccc;
+      }
+
+      .chip-label {
+        color: var(--label, #ffffff);
+        font-size: 12px;
+        font-weight: 650;
+        line-height: 1;
+        white-space: nowrap;
+      }
+
+      .meta {
+        display: flex;
+        align-items: start;
+        justify-content: space-between;
+        gap: 12px;
+        min-height: 38px;
+        margin-top: 12px;
+      }
+
+      .token {
+        min-width: 0;
+        color: var(--text-desc);
+        font-size: 12px;
+        line-height: 1.45;
+        overflow-wrap: anywhere;
+      }
+
+      .copy {
+        flex: 0 0 auto;
+        height: 26px;
+        padding: 0 12px;
+        border: 1px solid var(--line);
+        border-radius: 5px;
+        color: var(--text-subtitle);
+        background: #ffffff;
+        cursor: pointer;
+        font-size: 12px;
+      }
+
+      .copy:hover {
+        color: var(--brand);
+        border-color: #ffd1cc;
+        background: #fff7f6;
+      }
+
+      .note-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 12px;
+        margin: 0 0 48px;
+      }
+
+      .note {
+        padding: 18px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+      }
+
+      .note strong {
+        display: block;
+        margin-bottom: 6px;
+        font-size: 13px;
+      }
+
+      .note span {
+        color: var(--text-subtitle);
+        font-size: 13px;
+        line-height: 1.7;
+      }
+
+      .dark-table-wrap {
+        overflow-x: auto;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+      }
+
+      .dark-table {
+        width: 100%;
+        min-width: 720px;
+        border-collapse: collapse;
+        table-layout: fixed;
+      }
+
+      .dark-table th,
+      .dark-table td {
+        padding: 18px;
+        border-bottom: 1px solid var(--line);
+        text-align: left;
+        vertical-align: middle;
+      }
+
+      .dark-table th + th,
+      .dark-table td + td {
+        border-left: 1px solid var(--line);
+      }
+
+      .dark-table th {
+        color: var(--text-title);
+        background: var(--panel);
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .dark-table th:first-child {
+        width: 24%;
+      }
+
+      .dark-table tr:last-child td {
+        border-bottom: 0;
+      }
+
+      .dark-token {
+        color: var(--text-title);
+        font-size: 13px;
+        font-weight: 700;
+        line-height: 1.5;
+      }
+
+      .dark-category {
+        display: block;
+        margin-top: 6px;
+        color: var(--text-desc);
+        font-size: 12px;
+        font-weight: 400;
+      }
+
+      .mode-color {
+        display: grid;
+        grid-template-columns: 36px minmax(0, 1fr) auto;
+        gap: 12px;
+        align-items: center;
+        min-width: 0;
+      }
+
+      .mode-color.is-readonly {
+        grid-template-columns: 36px minmax(0, 1fr);
+      }
+
+      .mode-chip {
+        width: 36px;
+        height: 36px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        background: var(--fill);
+      }
+
+      .mode-chip.has-border {
+        border-color: #cccccc;
+      }
+
+      .mode-value {
+        min-width: 0;
+        color: var(--text-subtitle);
+        font-size: 12px;
+        line-height: 1.45;
+        overflow-wrap: anywhere;
+      }
+
+      .toast {
+        position: fixed;
+        right: 24px;
+        bottom: 24px;
+        z-index: 30;
+        padding: 12px;
+        border-radius: 6px;
+        color: #ffffff;
+        background: rgba(0, 0, 0, 0.78);
+        font-size: 13px;
+        opacity: 0;
+        transform: translateY(6px);
+        transition: opacity 180ms ease, transform 180ms ease;
+        pointer-events: none;
+      }
+
+      .toast.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @media (max-width: 900px) {
+        :root {
+          --sidebar: 100%;
+        }
+
+        .topbar-inner,
+        .layout {
+          width: 100%;
+          padding-right: 18px;
+          padding-left: 18px;
+        }
+
+        .topnav a {
+          padding: 0 12px;
+        }
+
+        .topnav a:nth-child(n + 3) {
+          display: none;
+        }
+
+        .layout {
+          display: block;
+        }
+
+        .sidebar {
+          position: relative;
+          top: 0;
+          height: auto;
+          padding: 24px 0 18px;
+          border-bottom: 1px solid var(--line);
+        }
+
+        .sidenav {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        }
+
+        .main {
+          padding: 36px 0 72px;
+        }
+
+        .swatch-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .series-grid {
+          gap: 48px;
+        }
+
+        .color-series {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .doc-header {
+          margin-bottom: 36px;
+        }
+      }
+
+      @media (max-width: 520px) {
+        .brand-logo {
+          width: 118px;
+          height: auto;
+        }
+
+        .topnav {
+          font-size: 13px;
+        }
+
+        .swatch-grid {
+          grid-template-columns: 1fr;
+          gap: 48px;
+        }
+
+        .series-grid {
+          gap: 24px;
+        }
+
+        .color-series {
+          grid-template-columns: 1fr;
+        }
+
+        .chip {
+          min-height: 88px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="brand">
+          <img class="brand-logo" src="image/zdm-logo.svg" alt="DaMo Design" />
+        </div>
+        <nav class="topnav" aria-label="顶部导航">
+          <a class="is-active" href="#color">组件</a>
+          <a href="#tokens">设计 Token</a>
+          <a href="#usage">资源</a>
+          <a href="#usage">指南</a>
+        </nav>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="sidebar" aria-label="组件导航">
+        <nav class="side-nav">
+          <a class="side-primary-link is-active" href="#color">颜色</a>
+          <div class="side-secondary">
+            <div class="side-section">
+              <p class="side-section-title">基础</p>
+              <ul class="sidenav">
+                <li><a class="is-active" href="#brand">品牌色</a></li>
+                <li><a href="#background">基础背景色</a></li>
+                <li><a href="#text">文字色</a></li>
+                <li><a href="#divider">分割线</a></li>
+                <li><a href="#mask">蒙层</a></li>
+              </ul>
+            </div>
+
+            <div class="side-section">
+              <p class="side-section-title">业务</p>
+              <ul class="sidenav">
+                <li><a href="#extension">拓展色</a></li>
+                <li><a href="#member">会员</a></li>
+                <li><a href="#qa">问答</a></li>
+                <li><a href="#ranking">排名</a></li>
+                <li><a href="#tag">标签</a></li>
+              </ul>
+            </div>
+
+            <div class="side-section">
+              <p class="side-section-title">主题</p>
+              <ul class="sidenav">
+                <li><a href="#dark-mode">深色模式</a></li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </aside>
+
+      <main class="main" id="color">
+        <section class="doc-header">
+          <h2 class="doc-title">Color 颜色</h2>
+          <p>
+            从 DaMo Design System 的 Figma 颜色页整理而来，覆盖品牌色、基础中性色、功能色与业务场景色。
+            色板保持设计稿里的色值、Token 名称和使用语义，便于后续扩展成完整组件文档站。
+          </p>
+          <p class="doc-meta">Figma 节点：DaMo Design System / Color 颜色 / node-id: 4035:197</p>
+        </section>
+
+        <section class="note-row" id="usage">
+          <div class="note">
+            <strong>Token 优先</strong>
+            <span>业务代码优先引用 Token 名称，避免直接写死色值，便于主题与状态统一维护。</span>
+          </div>
+          <div class="note">
+            <strong>语义分层</strong>
+            <span>品牌、文字、背景、分割线与业务色分区展示，减少跨场景误用。</span>
+          </div>
+          <div class="note">
+            <strong>轻色背景</strong>
+            <span>浅色背景用于标签、弱提示、频道入口等低干扰场景，避免替代主操作色。</span>
+          </div>
+        </section>
+
+        <div class="content" id="tokens"></div>
+      </main>
+    </div>
+
+    <div class="toast" role="status" aria-live="polite">已复制</div>
+
+    <script>
+      const sections = [
+        {
+          id: "brand",
+          title: "品牌色",
+          desc: "主品牌、弱品牌背景与品牌渐变。",
+          colors: [
+            ["#E62828", "@color-brand-1: #E62828", "#e62828"],
+            ["#FFEDEB", "@color-brand-2: #FFEDEB", "#ffedeb", "#e62828"],
+            ["#FA0F00", "@color-brand-3: #FA0F00", "#fa0f00"],
+            [
+              "#FF724B—#E62828",
+              "@color-brand-gradient: red",
+              "linear-gradient(153deg, #ff724b 0%, #e62828 100%)",
+            ],
+          ],
+        },
+        {
+          id: "background",
+          title: "基础背景色",
+          desc: "页面、模块与容器背景。",
+          colors: [
+            ["#F2F2F2", "@color-background: #F2F2F2", "#f2f2f2", "#333333"],
+            ["#F5F5F5", "@color-background: #F5F5F5", "#f5f5f5", "#333333"],
+            ["#F9F9F9", "@color-background: #F9F9F9", "#f9f9f9", "#333333"],
+            ["#FFFFFF", "@color-background: #FFF", "#ffffff", "#333333", true],
+          ],
+        },
+        {
+          id: "text",
+          title: "文字色",
+          desc: "标题、正文、辅助、链接与强调文本。",
+          colors: [
+            ["#333333", "@color-text-title: #333333", "#333333"],
+            ["#666666", "@color-text-subtitle: #666666", "#666666"],
+            ["#999999", "@color-text-description: #999999", "#999999"],
+            ["#CCCCCC", "@color-text-weak: #CCCCCC", "#cccccc", "#333333"],
+            ["#FFFFFF", "@color-text-base: #FFFFFF", "#ffffff", "#333333", true],
+            ["#E62828", "@color-text-stress: #E62828", "#e62828"],
+            ["#447DBD", "@color-text-link: #447DBD", "#447dbd"],
+          ],
+        },
+        {
+          id: "divider",
+          title: "分割线",
+          desc: "列表、卡片、容器边界与弱描边。",
+          colors: [
+            ["#F5F5F5", "@color-divider-line: #F5F5F5", "#f5f5f5", "#333333"],
+            ["#EEEEEE", "@color-divider-line: #EEEEEE", "#eeeeee", "#333333"],
+            ["#DDDDDD", "@color-divider-line: #DDDDDD", "#dddddd", "#333333"],
+            ["#CCCCCC", "@color-divider-line: #CCCCCC", "#cccccc", "#333333"],
+          ],
+        },
+        {
+          id: "mask",
+          title: "蒙层",
+          desc: "页面遮罩、标签遮罩与浮层遮罩。",
+          colors: [
+            ["#000000 Alpha 0.7", "@color-page-mask: rgba(0, 0, 0, 0.7)", "rgba(0,0,0,0.7)"],
+            ["#000000 Alpha 0.8", "@color-label-mask: rgba(0, 0, 0, 0.8)", "rgba(0,0,0,0.8)"],
+            ["#000000 Alpha 0.4", "@color-label-mask: rgba(0, 0, 0, 0.4)", "rgba(0,0,0,0.4)"],
+          ],
+        },
+        {
+          id: "extension",
+          title: "拓展色",
+          desc: "频道入口、标签背景与轻量辅助色。",
+          groups: [
+            {
+              colors: [
+                ["#FFBE6B—#FFAD44", "频道入口icon背景", "linear-gradient(153deg, #ffbe6b, #ffad44)"],
+                ["#FFAD44", "纯色背景", "#ffad44"],
+                ["#FFF4E7", "浅色背景", "#fff4e7", "#ffad44"],
+              ],
+            },
+            {
+              colors: [
+                ["#FF8D40—#FF761A", "频道入口icon背景", "linear-gradient(153deg, #ff8d40, #ff761a)"],
+                ["#FF761A", "纯色背景", "#ff761a"],
+              ],
+            },
+            {
+              colors: [
+                ["#FF9C85—#FF7E5F", "频道入口icon背景", "linear-gradient(153deg, #ff9c85, #ff7e5f)"],
+                ["#FF7E5F", "纯色背景", "#ff7e5f"],
+                ["#FFF2EF", "浅色背景", "#fff2ef", "#ff7e5f"],
+              ],
+            },
+            {
+              colors: [
+                ["#FF7E64—#FF5757", "频道入口icon背景", "linear-gradient(153deg, #ff7e64, #ff5757)"],
+                ["#FF5757", "纯色背景", "#ff5757"],
+              ],
+            },
+            {
+              colors: [
+                ["#4AE6CC—#28E6C6", "频道入口icon背景", "linear-gradient(153deg, #4ae6cc, #28e6c6)"],
+                ["#28E6C6", "纯色背景", "#28e6c6"],
+                ["#E9FCF9", "浅色背景", "#e9fcf9", "#28e6c6"],
+              ],
+            },
+            {
+              colors: [
+                ["#63E2B2—#42E2A5", "频道入口icon背景", "linear-gradient(153deg, #63e2b2, #42e2a5)"],
+                ["#42E2A5", "纯色背景", "#42e2a5"],
+              ],
+            },
+            {
+              colors: [
+                ["#4AD9E6—#28D6E6", "频道入口icon背景", "linear-gradient(153deg, #4ad9e6, #28d6e6)"],
+                ["#28D6E6", "纯色背景", "#28d6e6"],
+              ],
+            },
+            {
+              colors: [
+                ["#70C7FF—#4BB8FF", "频道入口icon背景", "linear-gradient(153deg, #70c7ff, #4bb8ff)"],
+                ["#4BB8FF", "纯色背景", "#4bb8ff"],
+                ["#EDF8FF", "浅色背景", "#edf8ff", "#4bb8ff"],
+              ],
+            },
+            {
+              colors: [
+                ["#A3AEFF—#5B6FFF", "频道入口icon背景", "linear-gradient(153deg, #a3aeff, #5b6fff)"],
+                ["#5B6FFF", "纯色背景", "#5b6fff"],
+                ["#EEF0FF", "浅色背景", "#eef0ff", "#5b6fff"],
+              ],
+            },
+            {
+              colors: [
+                ["#7D59FF—#5E32FF", "频道入口icon背景", "linear-gradient(153deg, #7d59ff, #5e32ff)"],
+                ["#5E32FF", "纯色背景", "#5e32ff"],
+              ],
+            },
+          ],
+        },
+        {
+          id: "member",
+          title: "会员",
+          desc: "会员等级相关色。",
+          colors: [
+            ["#5E606E—#323846", "会员等级相关", "linear-gradient(153deg, #5e606e, #323846)", "#fdf0d9"],
+            ["#FDF0D9—#D7A283", "会员等级相关", "linear-gradient(153deg, #fdf0d9, #d7a283)", "#333333"],
+            ["#FFDFCB", "会员等级相关", "#ffdfcb", "#333333"],
+          ],
+        },
+        {
+          id: "qa",
+          title: "问答 / 晒物 / 百科",
+          desc: "内容业务线的识别色与弱背景。",
+          colors: [
+            ["#E62828—#F95F42", "问答", "linear-gradient(153deg, #e62828, #f95f42)"],
+            ["#409CF9—#007EFF", "问答", "linear-gradient(153deg, #409cf9, #007eff)"],
+            ["#E6F2FE", "问答", "#e6f2fe", "#1b8bfd"],
+            ["#FD7807", "晒物相关", "#fd7807"],
+            ["#FFF4E7", "晒物相关", "#fff4e7", "#fd7807"],
+            ["#4D73C5", "百科相关", "#4d73c5"],
+            ["#F1F5FE", "百科相关", "#f1f5fe", "#4d73c5"],
+          ],
+        },
+        {
+          id: "ranking",
+          title: "排名",
+          desc: "排行榜前三名背景。",
+          colors: [
+            ["#FFF2D4—#FFD280", "排行榜金背景", "linear-gradient(153deg, #fff2d4, #ffd280)", "#dd7c00"],
+            ["#F4F4F4—#C4C4C4", "排行榜银背景", "linear-gradient(153deg, #f4f4f4, #c4c4c4)", "#888888"],
+            ["#FFDEBD—#EA9C58", "排行榜铜背景", "linear-gradient(153deg, #ffdebd, #ea9c58)", "#9c5f1d"],
+          ],
+        },
+        {
+          id: "tag",
+          title: "标签 / 红点气泡",
+          desc: "类型角标、提醒气泡与特殊标签。",
+          colors: [
+            ["#E62828 Alpha 0.8", "类型角标-红色标签背景", "rgba(230,40,40,0.8)"],
+            ["#2B6EC8 Alpha 0.8", "类型角标-蓝色标签背景", "rgba(43,110,200,0.8)"],
+            ["#F76525 Alpha 0.8", "类型角标-橙色标签背景", "rgba(247,101,37,0.8)"],
+            ["#FAC661 Alpha 0.8", "类型角标-黄色标签背景", "rgba(250,198,97,0.8)", "#8c5a00"],
+            ["#FE3F00", "红点气泡背景", "#fe3f00"],
+          ],
+        },
+      ];
+
+      const darkModeRows = [
+        ["品牌色", "品牌主色", "#E62828", "#e62828", "#F04848", "#f04848"],
+        ["品牌色", "品牌弱背景", "#FFEDEB", "#ffedeb", "#FFD6C6", "#ffd6c6"],
+        ["品牌色", "品牌强调色", "#FA0F00", "#fa0f00", "#F04848", "#f04848"],
+        ["品牌色", "张大妈主题色", "#563AFF", "#563aff", "#8476FF", "#8476ff"],
+        ["品牌色", "张大妈主题浅色", "#E9EAFF", "#e9eaff", "#292456", "#292456"],
+        ["品牌色", "张大妈主题浅色2", "#E0E2FF", "#e0e2ff", "#3C31A6", "#3c31a6"],
+        ["页面背景", "基础页面背景", "#F2F2F2", "#f2f2f2", "#121212", "#121212"],
+        ["页面背景", "模块背景", "#F5F5F5", "#f5f5f5", "#121212", "#121212"],
+        ["页面背景", "弱背景", "#F9F9F9", "#f9f9f9", "#121212", "#121212"],
+        ["页面背景", "白色背景", "#FFFFFF", "#ffffff", "#121212", "#121212", true],
+        ["页面背景", "浅分割背景", "#EEEEEE", "#eeeeee", "#121212", "#121212"],
+        ["文字色", "标题文字", "#333333", "#333333", "#E0E0E0", "#e0e0e0"],
+        ["文字色", "正文文字", "#666666", "#666666", "#A0A0A0", "#a0a0a0"],
+        ["文字色", "辅助文字", "#999999", "#999999", "#6C6C6C", "#6c6c6c"],
+        ["文字色", "弱文字", "#CCCCCC", "#cccccc", "#666666", "#666666"],
+        ["文字色", "更弱文字", "#DDDDDD", "#dddddd", "#333333", "#333333"],
+        ["文字色", "链接色", "#447DBD", "#447dbd", "#9ECDEE", "#9ecdee"],
+        ["文字色", "白色文字", "#FFFFFF", "#ffffff", "#FFFFFF", "#ffffff", true, true],
+        ["文字色", "黑色文字", "#000000", "#000000", "#FFFFFF", "#ffffff"],
+        ["文字色", "强调文字", "#E62828", "#e62828", "#F04848", "#f04848"],
+        ["文字色", "晒物强调", "#FD7807", "#fd7807", "#FBA900", "#fba900"],
+        ["文字色", "会员棕", "#6C3914", "#6c3914", "#FFE4C5", "#ffe4c5"],
+        ["分割线&描边", "浅描边", "#F5F5F5", "#f5f5f5", "#2C2C2C", "#2c2c2c"],
+        ["分割线&描边", "弱描边", "#F3F3F3", "#f3f3f3", "#121212", "#121212"],
+        ["分割线&描边", "常规描边", "#EEEEEE", "#eeeeee", "#353535", "#353535"],
+        ["分割线&描边", "深描边", "#DDDDDD", "#dddddd", "#5A5A5A", "#5a5a5a"],
+        ["分割线&描边", "强描边", "#CCCCCC", "#cccccc", "#7D7D7D", "#7d7d7d"],
+        ["分割线&描边", "灰色透明描边", "rgba(102,102,102,0.4)", "rgba(102,102,102,0.4)", "rgba(160,160,160,0.4)", "rgba(160,160,160,0.4)"],
+        ["分割线&描边", "品牌透明描边", "rgba(230,40,40,0.4)", "rgba(230,40,40,0.4)", "rgba(240,72,72,0.4)", "rgba(240,72,72,0.4)"],
+        ["分割线&描边", "主题透明描边", "rgba(86,58,255,0.1)", "rgba(86,58,255,0.1)", "rgba(132,118,255,0.1)", "rgba(132,118,255,0.1)"],
+        ["分割线&描边", "白色描边", "#FFFFFF", "#ffffff", "#222222", "#222222", true],
+        ["蒙层", "强蒙层", "rgba(0,0,0,0.8)", "rgba(0,0,0,0.8)", "rgba(0,0,0,0.8)", "rgba(0,0,0,0.8)"],
+        ["蒙层", "页面蒙层", "rgba(0,0,0,0.7)", "rgba(0,0,0,0.7)", "rgba(0,0,0,0.7)", "rgba(0,0,0,0.7)"],
+        ["蒙层", "内容蒙层", "rgba(0,0,0,0.4)", "rgba(0,0,0,0.4)", "rgba(0,0,0,0.4)", "rgba(0,0,0,0.4)"],
+        ["蒙层", "弱蒙层", "rgba(0,0,0,0.3)", "rgba(0,0,0,0.3)", "rgba(0,0,0,0.3)", "rgba(0,0,0,0.3)"],
+        ["蒙层", "轻蒙层", "rgba(0,0,0,0.2)", "rgba(0,0,0,0.2)", "rgba(0,0,0,0.2)", "rgba(0,0,0,0.2)"],
+        ["卡片背景", "白色卡片", "#FFFFFF", "#ffffff", "#222222", "#222222", true],
+        ["卡片背景", "浅灰卡片", "#F5F5F5", "#f5f5f5", "#222222", "#222222"],
+        ["卡片背景", "次级卡片", "#F7F7F7", "#f7f7f7", "#2C2C2C", "#2c2c2c"],
+        ["卡片背景", "弱卡片", "#F9F9F9", "#f9f9f9", "#2C2C2C", "#2c2c2c"],
+        ["卡片背景", "品牌弱卡片", "#FFEDEB", "#ffedeb", "#4B2929", "#4b2929"],
+        ["卡片背景", "透明卡片", "rgba(255,255,255,0)", "rgba(255,255,255,0)", "rgba(34,34,34,0)", "rgba(34,34,34,0)", true, true],
+        ["卡片背景", "半透明卡片", "rgba(255,255,255,0.6)", "rgba(255,255,255,0.6)", "rgba(34,34,34,0.6)", "rgba(34,34,34,0.6)", true],
+        ["标签&按钮", "浅灰按钮", "#F5F5F5", "#f5f5f5", "#353535", "#353535"],
+        ["标签&按钮", "弱灰按钮", "#F9F9F9", "#f9f9f9", "#2C2C2C", "#2c2c2c"],
+        ["标签&按钮", "品牌弱按钮", "#FFEDEB", "#ffedeb", "#4B2929", "#4b2929"],
+        ["标签&按钮", "橙色弱按钮", "#FFF4E7", "#fff4e7", "#40300E", "#40300e"],
+        ["标签&按钮", "白色按钮", "#FFFFFF", "#ffffff", "#353535", "#353535", true],
+        ["标签&按钮", "中性按钮", "#DDDDDD", "#dddddd", "#333333", "#333333"],
+        ["标签&按钮", "浅分割按钮", "#EEEEEE", "#eeeeee", "#353535", "#353535"],
+        ["标签&按钮", "深色按钮", "#333333", "#333333", "#121212", "#121212"],
+        ["输入/搜索", "输入框背景", "#F5F5F5", "#f5f5f5", "#353535", "#353535"],
+        ["输入/搜索", "输入框描边", "#EEEEEE", "#eeeeee", "#222222", "#222222"],
+        ["输入/搜索", "搜索栏", "#F2F2F2", "#f2f2f2", "#272727", "#272727"],
+        ["输入/搜索", "新搜索栏", "#F2F2F2", "#f2f2f2", "#353535", "#353535"],
+        ["输入/搜索", "底部工具栏", "#FFFFFF", "#ffffff", "#2E2E2E", "#2e2e2e", true],
+        ["小值蓝色", "深蓝", "#007EFF", "#007eff", "#0066CE", "#0066ce"],
+        ["小值蓝色", "浅蓝", "#E6F2FE", "#e6f2fe", "#223445", "#223445"],
+        ["其他", "小红点", "#FE3F00", "#fe3f00", "#FE3F00", "#fe3f00"],
+        ["其他", "底部 Tab", "#FAD4D4", "#fad4d4", "#553332", "#553332"],
+        ["渐变", "值得买红色渐变", "#FF724B—#E62828", "linear-gradient(135deg, #ff724b 0%, #e62828 100%)", "#FE7256—#F04848", "linear-gradient(135deg, #fe7256 0%, #f04848 100%)"],
+        ["渐变", "张大妈紫色渐变", "#754FFF—#3825FF", "linear-gradient(91deg, #754fff 1%, #3825ff 100%)", "#8C6DFA—#5546F2", "linear-gradient(91deg, #8c6dfa 1%, #5546f2 100%)"],
+      ];
+
+      const content = document.querySelector(".content");
+      const toast = document.querySelector(".toast");
+      let toastTimer = 0;
+
+      async function copyToClipboard(value) {
+        await navigator.clipboard.writeText(value);
+        toast.classList.add("is-visible");
+        window.clearTimeout(toastTimer);
+        toastTimer = window.setTimeout(() => toast.classList.remove("is-visible"), 1200);
+      }
+
+      function rgbToHex(r, g, b) {
+        return [r, g, b]
+          .map((channel) => Number(channel).toString(16).padStart(2, "0"))
+          .join("");
+      }
+
+      function alphaToPercent(alpha) {
+        const percent = Number(alpha) * 100;
+        return `${Number.isInteger(percent) ? percent : Number(percent.toFixed(1))}%`;
+      }
+
+      function formatColorValue(value) {
+        return String(value)
+          .trim()
+          .replace(
+            /rgba\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*([0-9.]+)\s*\)/gi,
+            (_, r, g, b, a) => `#${rgbToHex(r, g, b)} ${alphaToPercent(a)}`
+          )
+          .replace(
+            /(#[0-9a-f]{3,8})\s+Alpha\s+([0-9.]+)/gi,
+            (_, hex, alpha) => `${hex.toLowerCase()} ${alphaToPercent(alpha)}`
+          )
+          .replace(/#[0-9a-f]{3,8}/gi, (hex) => hex.toLowerCase());
+      }
+
+      function renderSwatch([label, token, fill, labelColor, hasBorder]) {
+        const swatch = document.createElement("article");
+        swatch.className = "swatch";
+        const displayLabel = formatColorValue(label);
+        const displayToken = formatColorValue(token);
+
+        const chip = document.createElement("div");
+        chip.className = `chip${hasBorder ? " has-border" : ""}`;
+        chip.style.setProperty("--fill", fill);
+        chip.style.setProperty("--label", labelColor || "#ffffff");
+
+        const chipLabel = document.createElement("span");
+        chipLabel.className = "chip-label";
+        chipLabel.textContent = displayLabel;
+        chip.appendChild(chipLabel);
+
+        const meta = document.createElement("div");
+        meta.className = "meta";
+
+        const tokenText = document.createElement("div");
+        tokenText.className = "token";
+        tokenText.textContent = displayToken;
+
+        const button = document.createElement("button");
+        button.className = "copy";
+        button.type = "button";
+        button.textContent = "复制";
+        button.setAttribute("aria-label", `复制 ${displayLabel}`);
+        button.addEventListener("click", () => copyToClipboard(token.includes(":") ? displayToken : displayLabel));
+
+        meta.append(tokenText, button);
+        swatch.append(chip, meta);
+        return swatch;
+      }
+
+      function renderSection(section) {
+        const wrapper = document.createElement("section");
+        wrapper.className = "token-section";
+        wrapper.id = section.id;
+
+        const title = document.createElement("div");
+        title.className = "section-title";
+        title.innerHTML = `<h2>${section.title}</h2><p>${section.desc}</p>`;
+
+        const grid = document.createElement("div");
+        grid.className = section.groups ? "series-grid" : "swatch-grid";
+
+        if (section.groups) {
+          section.groups.forEach((group) => {
+            const series = document.createElement("div");
+            series.className = "color-series";
+
+            group.colors.forEach((color) => series.appendChild(renderSwatch(color)));
+            grid.appendChild(series);
+          });
+        } else {
+          section.colors.forEach((color) => grid.appendChild(renderSwatch(color)));
+        }
+
+        wrapper.append(title, grid);
+        return wrapper;
+      }
+
+      function renderModeColor(value, fill, hasBorder, showCopy = true) {
+        const wrapper = document.createElement("div");
+        wrapper.className = `mode-color${showCopy ? "" : " is-readonly"}`;
+        const displayValue = formatColorValue(value);
+
+        const chip = document.createElement("span");
+        chip.className = `mode-chip${hasBorder ? " has-border" : ""}`;
+        chip.style.setProperty("--fill", fill);
+
+        const text = document.createElement("span");
+        text.className = "mode-value";
+        text.textContent = displayValue;
+
+        wrapper.append(chip, text);
+        if (!showCopy) {
+          return wrapper;
+        }
+
+        const button = document.createElement("button");
+        button.className = "copy";
+        button.type = "button";
+        button.textContent = "复制";
+        button.setAttribute("aria-label", `复制 ${displayValue}`);
+        button.addEventListener("click", () => copyToClipboard(displayValue));
+
+        wrapper.append(button);
+        return wrapper;
+      }
+
+      function renderDarkModeSection() {
+        const wrapper = document.createElement("section");
+        wrapper.className = "token-section";
+        wrapper.id = "dark-mode";
+
+        const title = document.createElement("div");
+        title.className = "section-title";
+        title.innerHTML = "<h2>深色模式</h2><p>按 Figma 的浅色与暗色变量一一对应整理，便于查找、复制与校验。</p>";
+
+        const tableWrap = document.createElement("div");
+        tableWrap.className = "dark-table-wrap";
+
+        const table = document.createElement("table");
+        table.className = "dark-table";
+        table.innerHTML = `
+          <thead>
+            <tr>
+              <th>场景</th>
+              <th>浅色</th>
+              <th>暗色</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        `;
+
+        const tbody = table.querySelector("tbody");
+        darkModeRows.forEach(([category, token, lightValue, lightFill, darkValue, darkFill, lightBorder, darkBorder]) => {
+          const row = document.createElement("tr");
+
+          const tokenCell = document.createElement("td");
+          tokenCell.innerHTML = `<span class="dark-token">${token}</span><span class="dark-category">${category}</span>`;
+
+          const lightCell = document.createElement("td");
+          lightCell.appendChild(renderModeColor(lightValue, lightFill, lightBorder, false));
+
+          const darkCell = document.createElement("td");
+          darkCell.appendChild(renderModeColor(darkValue, darkFill, darkBorder));
+
+          row.append(tokenCell, lightCell, darkCell);
+          tbody.appendChild(row);
+        });
+
+        tableWrap.appendChild(table);
+        wrapper.append(title, tableWrap);
+        return wrapper;
+      }
+
+      sections.forEach((section) => content.appendChild(renderSection(section)));
+      content.appendChild(renderDarkModeSection());
+
+      const links = Array.from(document.querySelectorAll(".sidenav a"));
+      const observer = new IntersectionObserver(
+        (entries) => {
+          const visible = entries
+            .filter((entry) => entry.isIntersecting)
+            .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+          if (!visible) return;
+          links.forEach((link) => {
+            link.classList.toggle("is-active", link.getAttribute("href") === `#${visible.target.id}`);
+          });
+        },
+        { rootMargin: "-25% 0px -65% 0px", threshold: [0.1, 0.3, 0.6] }
+      );
+
+      document.querySelectorAll(".token-section").forEach((section) => observer.observe(section));
+    </script>
+  </body>
+</html>
