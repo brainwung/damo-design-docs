@@ -219,7 +219,6 @@
         width: 100%;
         margin-top: 24px;
         padding: 6px 18px;
-        border-left: 5px solid var(--brand);
         border-radius: 4px;
         color: var(--text-subtitle);
         background: var(--brand-weak);
@@ -347,32 +346,6 @@
         color: var(--brand);
         border-color: #ffd1cc;
         background: #fff7f6;
-      }
-
-      .note-row {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: 12px;
-        margin: 0 0 48px;
-      }
-
-      .note {
-        padding: 18px;
-        border: 1px solid var(--line);
-        border-radius: 8px;
-        background: var(--panel);
-      }
-
-      .note strong {
-        display: block;
-        margin-bottom: 6px;
-        font-size: 13px;
-      }
-
-      .note span {
-        color: var(--text-subtitle);
-        font-size: 13px;
-        line-height: 1.7;
       }
 
       .dark-table-wrap {
@@ -641,21 +614,6 @@
           <p class="doc-meta">Figma 节点：DaMo Design System / Color 颜色 / node-id: 4035:197</p>
         </section>
 
-        <section class="note-row" id="usage">
-          <div class="note">
-            <strong>Token 优先</strong>
-            <span>业务代码优先引用 Token 名称，避免直接写死色值，便于主题与状态统一维护。</span>
-          </div>
-          <div class="note">
-            <strong>语义分层</strong>
-            <span>品牌、文字、背景、分割线与业务色分区展示，减少跨场景误用。</span>
-          </div>
-          <div class="note">
-            <strong>轻色背景</strong>
-            <span>浅色背景用于标签、弱提示、频道入口等低干扰场景，避免替代主操作色。</span>
-          </div>
-        </section>
-
         <div class="content" id="tokens"></div>
       </main>
     </div>
@@ -885,7 +843,7 @@
         ["文字色", "更弱文字", "#DDDDDD", "#dddddd", "#333333", "#333333"],
         ["文字色", "链接色", "#447DBD", "#447dbd", "#9ECDEE", "#9ecdee"],
         ["文字色", "白色文字", "#FFFFFF", "#ffffff", "#FFFFFF", "#ffffff", true, true],
-        ["文字色", "黑色文字", "#000000", "#000000", "#FFFFFF", "#ffffff"],
+        ["文字色", "黑色文字", "#000000", "#000000", "#FFFFFF", "#ffffff", false, true],
         ["文字色", "强调文字", "#E62828", "#e62828", "#F04848", "#f04848"],
         ["文字色", "晒物强调", "#FD7807", "#fd7807", "#FBA900", "#fba900"],
         ["文字色", "会员棕", "#6C3914", "#6c3914", "#FFE4C5", "#ffe4c5"],
@@ -1133,20 +1091,43 @@
       content.appendChild(renderDarkModeSection());
 
       const links = Array.from(document.querySelectorAll(".sidenav a"));
-      const observer = new IntersectionObserver(
-        (entries) => {
-          const visible = entries
-            .filter((entry) => entry.isIntersecting)
-            .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-          if (!visible) return;
-          links.forEach((link) => {
-            link.classList.toggle("is-active", link.getAttribute("href") === `#${visible.target.id}`);
-          });
-        },
-        { rootMargin: "-25% 0px -65% 0px", threshold: [0.1, 0.3, 0.6] }
-      );
+      const navSections = links
+        .map((link) => document.querySelector(link.getAttribute("href")))
+        .filter(Boolean);
+      let ticking = false;
 
-      document.querySelectorAll(".token-section").forEach((section) => observer.observe(section));
+      function updateActiveNav() {
+        const anchorLine = window.scrollY + 140;
+        let activeSection = navSections[0];
+
+        navSections.forEach((section) => {
+          if (section.offsetTop <= anchorLine) {
+            activeSection = section;
+          }
+        });
+
+        const nearPageBottom =
+          window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 6;
+        if (nearPageBottom) {
+          activeSection = navSections[navSections.length - 1];
+        }
+
+        links.forEach((link) => {
+          link.classList.toggle("is-active", link.getAttribute("href") === `#${activeSection.id}`);
+        });
+      }
+
+      window.addEventListener("scroll", () => {
+        if (ticking) return;
+        ticking = true;
+        window.requestAnimationFrame(() => {
+          updateActiveNav();
+          ticking = false;
+        });
+      });
+      window.addEventListener("resize", updateActiveNav);
+      window.addEventListener("hashchange", updateActiveNav);
+      updateActiveNav();
     </script>
   </body>
 </html>
