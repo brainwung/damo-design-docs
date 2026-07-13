@@ -871,6 +871,7 @@
       const grid = document.querySelector(".icon-grid");
       const empty = document.querySelector(".icon-empty");
       let sizeBubbleTimer = 0;
+      let isDownloading = false;
       const selectedIcons = new Set();
 
       const cards = iconNames.map((name, index) => {
@@ -924,7 +925,8 @@
       }
 
       function updateDownloadState() {
-        downloadSvg.disabled = selectedIcons.size === 0;
+        downloadSvg.disabled = selectedIcons.size === 0 || isDownloading;
+        downloadSvg.childNodes[0].nodeValue = isDownloading ? "打包中" : "下载SVG";
         downloadSvgCount.textContent = selectedIcons.size ? selectedIcons.size : "";
         downloadSvgCount.classList.toggle("is-visible", selectedIcons.size > 0);
       }
@@ -974,19 +976,143 @@
         }, 900);
       }
 
-      function triggerFileDownload(fileName) {
+      function createCrcTable() {
+        const table = [];
+        for (let index = 0; index < 256; index += 1) {
+          let value = index;
+          for (let bit = 0; bit < 8; bit += 1) {
+            value = value & 1 ? 0xedb88320 ^ (value >>> 1) : value >>> 1;
+          }
+          table[index] = value >>> 0;
+        }
+        return table;
+      }
+
+      const crcTable = createCrcTable();
+      const zipEncoder = new TextEncoder();
+
+      function getCrc32(data) {
+        let crc = 0xffffffff;
+        data.forEach((byte) => {
+          crc = crcTable[(crc ^ byte) & 0xff] ^ (crc >>> 8);
+        });
+        return (crc ^ 0xffffffff) >>> 0;
+      }
+
+      function writeUint16(target, offset, value) {
+        target[offset] = value & 0xff;
+        target[offset + 1] = (value >>> 8) & 0xff;
+      }
+
+      function writeUint32(target, offset, value) {
+        target[offset] = value & 0xff;
+        target[offset + 1] = (value >>> 8) & 0xff;
+        target[offset + 2] = (value >>> 16) & 0xff;
+        target[offset + 3] = (value >>> 24) & 0xff;
+      }
+
+      function createZip(entries) {
+        const now = new Date();
+        const dosTime =
+          (now.getHours() << 11) | (now.getMinutes() << 5) | Math.floor(now.getSeconds() / 2);
+        const dosDate =
+          ((now.getFullYear() - 1980) << 9) | ((now.getMonth() + 1) << 5) | now.getDate();
+        const localParts = [];
+        const centralParts = [];
+        let offset = 0;
+
+        entries.forEach((entry) => {
+          const nameBytes = zipEncoder.encode(entry.name);
+          const data = entry.data;
+          const crc = getCrc32(data);
+
+          const localHeader = new Uint8Array(30 + nameBytes.length);
+          writeUint32(localHeader, 0, 0x04034b50);
+          writeUint16(localHeader, 4, 20);
+          writeUint16(localHeader, 6, 0x0800);
+          writeUint16(localHeader, 8, 0);
+          writeUint16(localHeader, 10, dosTime);
+          writeUint16(localHeader, 12, dosDate);
+          writeUint32(localHeader, 14, crc);
+          writeUint32(localHeader, 18, data.length);
+          writeUint32(localHeader, 22, data.length);
+          writeUint16(localHeader, 26, nameBytes.length);
+          writeUint16(localHeader, 28, 0);
+          localHeader.set(nameBytes, 30);
+
+          const centralHeader = new Uint8Array(46 + nameBytes.length);
+          writeUint32(centralHeader, 0, 0x02014b50);
+          writeUint16(centralHeader, 4, 20);
+          writeUint16(centralHeader, 6, 20);
+          writeUint16(centralHeader, 8, 0x0800);
+          writeUint16(centralHeader, 10, 0);
+          writeUint16(centralHeader, 12, dosTime);
+          writeUint16(centralHeader, 14, dosDate);
+          writeUint32(centralHeader, 16, crc);
+          writeUint32(centralHeader, 20, data.length);
+          writeUint32(centralHeader, 24, data.length);
+          writeUint16(centralHeader, 28, nameBytes.length);
+          writeUint16(centralHeader, 30, 0);
+          writeUint16(centralHeader, 32, 0);
+          writeUint16(centralHeader, 34, 0);
+          writeUint16(centralHeader, 36, 0);
+          writeUint32(centralHeader, 38, 0);
+          writeUint32(centralHeader, 42, offset);
+          centralHeader.set(nameBytes, 46);
+
+          localParts.push(localHeader, data);
+          centralParts.push(centralHeader);
+          offset += localHeader.length + data.length;
+        });
+
+        const centralSize = centralParts.reduce((sum, part) => sum + part.length, 0);
+        const endRecord = new Uint8Array(22);
+        writeUint32(endRecord, 0, 0x06054b50);
+        writeUint16(endRecord, 4, 0);
+        writeUint16(endRecord, 6, 0);
+        writeUint16(endRecord, 8, entries.length);
+        writeUint16(endRecord, 10, entries.length);
+        writeUint32(endRecord, 12, centralSize);
+        writeUint32(endRecord, 16, offset);
+        writeUint16(endRecord, 20, 0);
+
+        return new Blob([...localParts, ...centralParts, endRecord], { type: "application/zip" });
+      }
+
+      function triggerFileDownload(blob, fileName) {
+        const url = URL.createObjectURL(blob);
         const link = document.createElement("a");
-        link.href = "./icons/" + fileName;
+        link.href = url;
         link.download = fileName;
         document.body.appendChild(link);
         link.click();
         link.remove();
+        window.setTimeout(() => URL.revokeObjectURL(url), 1000);
       }
 
-      function downloadSelectedSvgs() {
+      async function downloadSelectedSvgs() {
         const selectedCards = cards.filter((card) => selectedIcons.has(card.dataset.iconName));
         if (selectedCards.length === 0) return;
-        selectedCards.forEach((card) => triggerFileDownload(card.dataset.fileName));
+        isDownloading = true;
+        updateDownloadState();
+        try {
+          const entries = await Promise.all(
+            selectedCards.map(async (card) => {
+              const response = await fetch("./icons/" + encodeURIComponent(card.dataset.fileName));
+              if (!response.ok) throw new Error(card.dataset.fileName);
+              return {
+                name: card.dataset.fileName,
+                data: new Uint8Array(await response.arrayBuffer()),
+              };
+            })
+          );
+          triggerFileDownload(createZip(entries), "damo-icons.zip");
+        } catch (error) {
+          window.alert("SVG 打包失败，请刷新页面后重试。");
+        } finally {
+          isDownloading = false;
+          updateDownloadState();
+        }
       }
 
       search.addEventListener("input", updateIconFilter);
