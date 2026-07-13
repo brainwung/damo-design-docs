@@ -1,0 +1,921 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>DaMo Design System - 图标库</title>
+    <style>
+      :root {
+        --brand: #e62828;
+        --brand-weak: #ffedeb;
+        --text-title: #333333;
+        --text-subtitle: #666666;
+        --text-desc: #999999;
+        --line: #eeeeee;
+        --page: #ffffff;
+        --panel: #fafafa;
+        --container: 1140px;
+        --sidebar: 220px;
+        --topbar: 80px;
+        --icon-card-min: 128px;
+        --icon-grid-gap: 14px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        color: var(--text-title);
+        background: var(--page);
+        font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC",
+          "Microsoft YaHei", sans-serif;
+      }
+
+      button,
+      input {
+        font: inherit;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        height: var(--topbar);
+        background: #ffffff;
+      }
+
+      .topbar-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: min(100%, var(--container));
+        height: var(--topbar);
+        margin: 0 auto;
+        border-bottom: 1px solid #dcdfe6;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+      }
+
+      .brand-logo {
+        display: block;
+        width: 146px;
+        height: 38px;
+        object-fit: contain;
+      }
+
+      .topnav {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        font-size: 14px;
+      }
+
+      .topnav a {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        padding: 0 24px;
+        color: var(--text-title);
+        font-weight: 400;
+        text-decoration: none;
+      }
+
+      .topnav a:hover,
+      .topnav a.is-active {
+        color: var(--brand);
+      }
+
+      .topnav a.is-active {
+        font-weight: 700;
+      }
+
+      .layout {
+        display: grid;
+        grid-template-columns: var(--sidebar) minmax(0, 1fr);
+        gap: 54px;
+        width: min(100%, var(--container));
+        margin: 0 auto;
+        min-height: calc(100vh - var(--topbar));
+      }
+
+      .sidebar {
+        position: sticky;
+        top: var(--topbar);
+        align-self: start;
+        padding: 54px 30px 42px 0;
+        background: #ffffff;
+      }
+
+      .side-primary-link {
+        display: block;
+        height: 40px;
+        color: var(--text-title);
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 40px;
+        text-decoration: none;
+      }
+
+      .side-section {
+        margin-top: 18px;
+      }
+
+      .side-section-title {
+        margin: 18px 0 0;
+        color: var(--text-desc);
+        font-size: 12px;
+        line-height: 26px;
+      }
+
+      .sidenav {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        overflow: hidden;
+      }
+
+      .sidenav a {
+        display: block;
+        height: 34px;
+        color: var(--text-subtitle);
+        font-size: 14px;
+        line-height: 34px;
+        overflow: hidden;
+        text-decoration: none;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .sidenav a:hover,
+      .sidenav a.is-active {
+        color: var(--brand);
+      }
+
+      .main {
+        min-width: 0;
+        padding: 54px 0 90px;
+      }
+
+      .doc-header {
+        margin-bottom: 42px;
+      }
+
+      .doc-title {
+        margin: 0;
+        color: var(--text-title);
+        font-size: 28px;
+        font-weight: 400;
+        line-height: 1;
+      }
+
+      .doc-header p {
+        margin: 12px 0 0;
+        color: var(--text-subtitle);
+        font-size: 14px;
+        line-height: 1.7;
+      }
+
+      .doc-meta {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        width: 100%;
+        margin-top: 24px;
+        padding: 6px 18px;
+        border-radius: 4px;
+        color: var(--text-subtitle);
+        background: var(--brand-weak);
+        font-size: 13px;
+      }
+
+      .section-title {
+        margin-bottom: 18px;
+      }
+
+      .section-title h2 {
+        margin: 0;
+        color: var(--text-title);
+        font-size: 22px;
+        font-weight: 400;
+        line-height: 1.35;
+      }
+
+      .section-title p {
+        margin: 12px 0 0;
+        color: var(--text-subtitle);
+        font-size: 14px;
+        line-height: 1.6;
+      }
+
+      .icon-toolbar {
+        display: grid;
+        grid-template-columns: repeat(6, minmax(var(--icon-card-min), 1fr));
+        gap: var(--icon-grid-gap);
+        align-items: center;
+        margin-bottom: 18px;
+      }
+
+      .icon-search {
+        grid-column: span 3;
+        width: 100%;
+        height: 40px;
+        padding: 0 14px;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        color: var(--text-title);
+        background: #f5f5f5;
+        outline: none;
+        font-size: 14px;
+      }
+
+      .icon-search:focus {
+        border-color: var(--line);
+      }
+
+      .icon-size-control {
+        grid-column: 5 / span 2;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .icon-size-label {
+        flex: 0 0 auto;
+        color: var(--text-subtitle);
+        font-size: 13px;
+        white-space: nowrap;
+      }
+
+      .icon-size-slider {
+        position: relative;
+        flex: 1 1 auto;
+        min-width: 0;
+      }
+
+      .icon-size {
+        width: 100%;
+        height: 28px;
+        margin: 0;
+        appearance: none;
+        background: transparent;
+        accent-color: var(--brand);
+      }
+
+      .icon-size::-webkit-slider-runnable-track {
+        height: 6px;
+        border: 0;
+        border-radius: 999px;
+        background: linear-gradient(
+          to right,
+          var(--brand) 0 var(--range-progress, 100%),
+          #eeeeee var(--range-progress, 100%) 100%
+        );
+      }
+
+      .icon-size::-webkit-slider-thumb {
+        width: 20px;
+        height: 20px;
+        margin-top: -7px;
+        border: 0;
+        border-radius: 50%;
+        appearance: none;
+        background: var(--brand);
+      }
+
+      .icon-size::-moz-range-track {
+        height: 6px;
+        border: 0;
+        border-radius: 999px;
+        background: #eeeeee;
+      }
+
+      .icon-size::-moz-range-progress {
+        height: 6px;
+        border-radius: 999px;
+        background: var(--brand);
+      }
+
+      .icon-size::-moz-range-thumb {
+        width: 20px;
+        height: 20px;
+        border: 0;
+        border-radius: 50%;
+        background: var(--brand);
+      }
+
+      .icon-size-bubble {
+        position: absolute;
+        top: -48px;
+        left: var(--bubble-left, 50%);
+        min-width: 48px;
+        padding: 8px 10px;
+        border-radius: 6px;
+        color: var(--text-title);
+        background: #ffffff;
+        box-shadow: 0 8px 24px rgba(51, 51, 51, 0.14);
+        font-size: 14px;
+        line-height: 1;
+        text-align: center;
+        opacity: 0;
+        transform: translateX(-50%) translateY(4px);
+        transition: opacity 120ms ease, transform 120ms ease;
+        pointer-events: none;
+      }
+
+      .icon-size-bubble::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: -7px;
+        width: 14px;
+        height: 14px;
+        background: #ffffff;
+        box-shadow: 5px 5px 12px rgba(51, 51, 51, 0.08);
+        transform: translateX(-50%) rotate(45deg);
+      }
+
+      .icon-size-slider.is-sliding .icon-size-bubble {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+
+      .icon-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(var(--icon-card-min), 1fr));
+        gap: var(--icon-grid-gap);
+      }
+
+      .icon-card {
+        min-width: 0;
+        padding: 16px 12px 12px;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        background: #ffffff;
+        transition: box-shadow 160ms ease, transform 160ms ease;
+      }
+
+      .icon-card.is-hidden {
+        display: none;
+      }
+
+      .icon-card:hover {
+        box-shadow: 0 10px 28px rgba(51, 51, 51, 0.12);
+        transform: translateY(-1px);
+      }
+
+      .icon-preview {
+        display: grid;
+        place-items: center;
+        height: 58px;
+      }
+
+      .icon-img {
+        display: block;
+        height: var(--icon-size, 48px);
+        width: auto;
+        max-width: calc(var(--icon-size, 48px) * 1.34);
+        object-fit: contain;
+      }
+
+      .icon-name {
+        margin-top: 10px;
+        min-height: 34px;
+        color: var(--text-title);
+        font-size: 12px;
+        line-height: 1.4;
+        text-align: center;
+        overflow-wrap: anywhere;
+      }
+
+      .icon-empty {
+        display: none;
+        padding: 36px;
+        border: 1px dashed var(--line);
+        border-radius: 6px;
+        color: var(--text-desc);
+        font-size: 14px;
+        text-align: center;
+      }
+
+      .icon-empty.is-visible {
+        display: block;
+      }
+
+      @media (max-width: 900px) {
+        :root {
+          --sidebar: 100%;
+        }
+
+        .topbar-inner,
+        .layout {
+          width: 100%;
+          padding-right: 18px;
+          padding-left: 18px;
+        }
+
+        .topnav a {
+          padding: 0 12px;
+        }
+
+        .topnav a:nth-child(n + 3) {
+          display: none;
+        }
+
+        .layout {
+          display: block;
+        }
+
+        .sidebar {
+          position: relative;
+          top: 0;
+          padding: 24px 0 18px;
+          border-bottom: 1px solid var(--line);
+        }
+
+        .sidenav {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        }
+
+        .main {
+          padding: 36px 0 72px;
+        }
+
+        .doc-header {
+          margin-bottom: 36px;
+        }
+
+        .icon-toolbar {
+          grid-template-columns: 1fr;
+          gap: 10px;
+        }
+
+        .icon-search,
+        .icon-size-control {
+          grid-column: auto;
+        }
+
+        .icon-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar-inner">
+        <a class="brand" href="./index.html" aria-label="DaMo Design System">
+          <img class="brand-logo" src="./image/zdm-logo.svg" alt="什么值得买" />
+        </a>
+        <nav class="topnav" aria-label="顶部导航">
+          <a href="./index.html">颜色</a>
+          <a class="is-active" href="./icons.html">图标库</a>
+          <a href="./index.html#usage">资源</a>
+          <a href="./index.html#usage">指南</a>
+        </nav>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="sidebar" aria-label="图标导航">
+        <nav class="side-nav">
+          <a class="side-primary-link is-active" href="#icons">图标库</a>
+          <div class="side-secondary">
+            <div class="side-section">
+              <p class="side-section-title">资源</p>
+              <ul class="sidenav">
+                <li><a class="is-active" href="#icons">全部图标</a></li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </aside>
+
+      <main class="main" id="icons">
+        <section class="doc-header">
+          <h1 class="doc-title">Icon 图标</h1>
+          <p>从 DaMo Design System 的 Figma 图标页整理而来，保持 48px 基准尺寸，便于查找与预览。</p>
+          <p class="doc-meta">Figma 节点：DaMo Design System / Icon 图标 / node-id: 12:442</p>
+        </section>
+
+        <section class="icon-library" aria-labelledby="icon-library-title">
+          <div class="section-title">
+            <h2 id="icon-library-title">图标库</h2>
+            <p>当前收录 284 个图标。搜索框支持按英文名称过滤。</p>
+          </div>
+          <div class="icon-toolbar">
+            <input class="icon-search" type="search" placeholder="搜索图标名称" aria-label="搜索图标名称" />
+            <div class="icon-size-control">
+              <span class="icon-size-label">图标大小</span>
+              <div class="icon-size-slider">
+                <input class="icon-size" type="range" min="12" max="48" value="48" aria-label="调整图标大小" />
+                <span class="icon-size-bubble" aria-hidden="true">48</span>
+              </div>
+            </div>
+          </div>
+          <div class="icon-grid"></div>
+          <div class="icon-empty">没有匹配的图标</div>
+        </section>
+      </main>
+    </div>
+
+    <script>
+      const iconNames = [
+        "drawer",
+        "vs",
+        "reset",
+        "code",
+        "wechatgroup",
+        "addflag",
+        "top-off",
+        "top",
+        "clock-round",
+        "angry",
+        "brand",
+        "fans-rising",
+        "award-cup",
+        "minus-circle-fill",
+        "histogram-regular",
+        "minus",
+        "minus-bold",
+        "minus-heavy",
+        "minus-fill",
+        "text-template",
+        "alignment-justify",
+        "alignment-middle",
+        "alignment-right",
+        "sort-up",
+        "alignment-left",
+        "text-indent",
+        "row-spacing",
+        "alignment",
+        "split-line",
+        "order-list",
+        "menu",
+        "next-step",
+        "previous-step",
+        "underline",
+        "wechat-circle-fill",
+        "wechat",
+        "Alipay-circle-fill",
+        "Alipay",
+        "markdown",
+        "bg-color",
+        "font-color",
+        "delete",
+        "i",
+        "B",
+        "H3",
+        "H2",
+        "brush",
+        "eraser",
+        "H",
+        "H4",
+        "H1",
+        "quote-right",
+        "moon",
+        "import",
+        "cutting",
+        "account",
+        "accusation",
+        "advertising",
+        "arrow-down",
+        "arrow-down-bold",
+        "arrow-down-heavy",
+        "arrow-left",
+        "arrow-left-bold",
+        "arrow-left-heavy",
+        "arrow-right",
+        "arrow-right-bold",
+        "arrow-right-heavy",
+        "arrow-up",
+        "arrow-up-bold",
+        "arrow-up-heavy",
+        "award",
+        "award-circle-fill",
+        "award-fill",
+        "bin",
+        "bing",
+        "book",
+        "buzhi",
+        "calendar",
+        "camera",
+        "camera-r",
+        "camera-fill",
+        "camera-switch",
+        "feedback",
+        "cart",
+        "cart-circle-fill",
+        "cart-fill",
+        "category",
+        "chart",
+        "check",
+        "check-bold",
+        "check-heavy",
+        "check-circle",
+        "check-circle-fill",
+        "check-circle-bold-fill",
+        "circle-fill",
+        "check-square",
+        "check-square-fill",
+        "check-square-bold-fill",
+        "circle",
+        "clock",
+        "clock-fill",
+        "close",
+        "column",
+        "column-circle-fill",
+        "column-fill",
+        "comment",
+        "comment-r",
+        "contents-bold",
+        "copy",
+        "batch",
+        "hexagon",
+        "head-star",
+        "flag-star",
+        "radar-fill",
+        "copy-fill",
+        "coupon",
+        "coupon-fill",
+        "cover",
+        "cross",
+        "cross-bold",
+        "cross-heavy",
+        "cross-circle",
+        "plus-circle",
+        "minus-circle",
+        "cross-circle-fill",
+        "decline",
+        "diamond",
+        "dislike",
+        "dislike-recently",
+        "download",
+        "email",
+        "evaluate",
+        "evaluate-r",
+        "exclamation",
+        "expression",
+        "eye",
+        "eye-off",
+        "male",
+        "female",
+        "filter",
+        "fire",
+        "fire-circle-fill",
+        "fire-fill",
+        "fixed-phone",
+        "flag",
+        "flag-double-line",
+        "flag-off",
+        "brand-R",
+        "flashbulb",
+        "flashbulb-off",
+        "fold",
+        "font",
+        "forbid",
+        "gift",
+        "heart",
+        "heart-plus",
+        "heart-check",
+        "pencil",
+        "histogram",
+        "home",
+        "i-circle",
+        "i-circle-fill",
+        "alarm-clock",
+        "keyboard",
+        "bell-money",
+        "bell-check",
+        "lab",
+        "lighting",
+        "link",
+        "location",
+        "lock",
+        "loudspeaker",
+        "loudspeaker-fill",
+        "magnifier",
+        "microphone",
+        "mission",
+        "more-horizontal",
+        "more-horizontal-circle-fill",
+        "more-vertical",
+        "more-vertical-bold",
+        "more-vertical-circle-fill",
+        "mute",
+        "paster",
+        "phone",
+        "picture",
+        "planet",
+        "play",
+        "play-fill",
+        "plus",
+        "plus-bold",
+        "plus-heavy",
+        "plus-circle-fill",
+        "plus-fill",
+        "purse",
+        "recorder",
+        "red-envelope",
+        "refresh",
+        "refresh-bold",
+        "return",
+        "rise",
+        "robot",
+        "rotate-left",
+        "rotate-right",
+        "scan",
+        "screen",
+        "select-circle",
+        "service",
+        "set",
+        "fader",
+        "share",
+        "shop",
+        "shopping-bag",
+        "shopping-bag-circle-fill",
+        "shopping-bag-fill",
+        "social",
+        "square",
+        "star",
+        "star-fill",
+        "ai-fill",
+        "stop",
+        "stop-fill",
+        "storage",
+        "tag",
+        "tag-circle-fill",
+        "tag-fill",
+        "tag-off",
+        "thumb-up",
+        "thumb-up-fill",
+        "tip-off",
+        "tip-off-circle-fill",
+        "topic",
+        "topic-circle-fill",
+        "triangle-down-fill",
+        "triangle-left-fill",
+        "triangle-right-fill",
+        "triangle-up-fill",
+        "trophy",
+        "trophy-circle-fill",
+        "trophy-fill",
+        "unfold",
+        "volume",
+        "voucher",
+        "voucher-circle-fill",
+        "voucher-fill",
+        "weibo",
+        "write",
+        "write-r",
+        "zhi",
+        "arrow-right-circle",
+        "plus-circle-square",
+        "chevron-left",
+        "chevron-down",
+        "chevron-up",
+        "chevron-right",
+        "bag-check",
+        "bag-check-fill",
+        "group",
+        "draft",
+        "mosaic",
+        "warn",
+        "thumb-down",
+        "thumb-down-fill",
+        "biserial",
+        "switch",
+        "uniserial",
+        "myinterest",
+        "myinterest-star",
+        "radar",
+        "bellless",
+        "bellmore",
+        "bellclose",
+        "interest-square",
+        "sign-in",
+        "topic-star",
+        "my-interest-management",
+        "cash-out",
+        "cash-in",
+        "random",
+        "newchat",
+        "paper-star",
+        "hand-click-fill",
+        "pause-circle",
+        "play-circle",
+        "star-circle",
+      ];
+      const iconFileNames = (() => {
+        const seen = new Map();
+        return iconNames.map((name) => {
+          const count = (seen.get(name) || 0) + 1;
+          seen.set(name, count);
+          if (name === "minus-circle") return "minus‌-circle.svg";
+          return count === 1 ? name + ".svg" : name + "-" + (count - 1) + ".svg";
+        });
+      })();
+
+      const search = document.querySelector(".icon-search");
+      const iconSizeSlider = document.querySelector(".icon-size-slider");
+      const iconSize = document.querySelector(".icon-size");
+      const iconSizeBubble = document.querySelector(".icon-size-bubble");
+      const grid = document.querySelector(".icon-grid");
+      const empty = document.querySelector(".icon-empty");
+      let sizeBubbleTimer = 0;
+
+      const cards = iconNames.map((name, index) => {
+        const card = document.createElement("article");
+        card.className = "icon-card";
+        card.dataset.name = name.toLowerCase();
+
+        const preview = document.createElement("div");
+        preview.className = "icon-preview";
+
+        const icon = document.createElement("img");
+        icon.className = "icon-img";
+        icon.src = "./icons/" + iconFileNames[index];
+        icon.alt = "";
+        icon.loading = "lazy";
+        icon.decoding = "async";
+        icon.setAttribute("aria-hidden", "true");
+
+        const label = document.createElement("div");
+        label.className = "icon-name";
+        label.textContent = name;
+
+        preview.appendChild(icon);
+        card.append(preview, label);
+        grid.appendChild(card);
+        return card;
+      });
+
+      function updateIconFilter() {
+        const keyword = search.value.trim().toLowerCase();
+        const sortedCards = keyword
+          ? [...cards].sort((first, second) => {
+              const firstName = first.dataset.name;
+              const secondName = second.dataset.name;
+              const firstStarts = firstName.startsWith(keyword);
+              const secondStarts = secondName.startsWith(keyword);
+              if (firstStarts !== secondStarts) return firstStarts ? -1 : 1;
+              return cards.indexOf(first) - cards.indexOf(second);
+            })
+          : cards;
+        let visibleCount = 0;
+        sortedCards.forEach((card) => {
+          const isVisible = !keyword || card.dataset.name.includes(keyword);
+          card.classList.toggle("is-hidden", !isVisible);
+          grid.appendChild(card);
+          if (isVisible) visibleCount += 1;
+        });
+        empty.classList.toggle("is-visible", visibleCount === 0);
+      }
+
+      function updateIconSize() {
+        const min = Number(iconSize.min);
+        const max = Number(iconSize.max);
+        const value = Number(iconSize.value);
+        const percent = (value - min) / (max - min);
+        const thumbOffset = 10 - percent * 20;
+        document.documentElement.style.setProperty("--icon-size", iconSize.value + "px");
+        iconSizeSlider.style.setProperty("--range-progress", percent * 100 + "%");
+        iconSizeSlider.style.setProperty(
+          "--bubble-left",
+          `calc(${percent * 100}% + ${thumbOffset}px)`
+        );
+        iconSizeBubble.textContent = iconSize.value;
+      }
+
+      function showSizeBubble() {
+        iconSizeSlider.classList.add("is-sliding");
+        window.clearTimeout(sizeBubbleTimer);
+        sizeBubbleTimer = window.setTimeout(() => {
+          iconSizeSlider.classList.remove("is-sliding");
+        }, 900);
+      }
+
+      search.addEventListener("input", updateIconFilter);
+      iconSize.addEventListener("input", () => {
+        updateIconSize();
+        showSizeBubble();
+      });
+      iconSize.addEventListener("pointerdown", showSizeBubble);
+      iconSize.addEventListener("pointerup", showSizeBubble);
+      iconSize.addEventListener("pointerleave", showSizeBubble);
+      iconSize.addEventListener("focus", showSizeBubble);
+      iconSize.addEventListener("blur", () => iconSizeSlider.classList.remove("is-sliding"));
+      updateIconSize();
+      updateIconFilter();
+    </script>
+  </body>
+</html>

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>DaMo Design System - Color</title>
+    <title>DaMo Design System</title>
     <style>
       :root {
         --brand: #e62828;
@@ -189,6 +189,7 @@
       .main {
         min-width: 0;
         padding: 54px 0 90px;
+        scroll-margin-top: calc(var(--topbar) + 24px);
       }
 
       .doc-header {
@@ -435,6 +436,7 @@
         overflow-wrap: anywhere;
       }
 
+
       .toast {
         position: fixed;
         bottom: 48px;
@@ -555,8 +557,8 @@
           <img class="brand-logo" src="image/zdm-logo.svg" alt="DaMo Design" />
         </div>
         <nav class="topnav" aria-label="顶部导航">
-          <a class="is-active" href="#color">组件</a>
-          <a href="#tokens">设计 Token</a>
+          <a class="is-active" href="#color">颜色</a>
+          <a href="./icons.html">图标库</a>
           <a href="#usage">资源</a>
           <a href="#usage">指南</a>
         </nav>
@@ -564,7 +566,7 @@
     </header>
 
     <div class="layout">
-      <aside class="sidebar" aria-label="组件导航">
+      <aside class="sidebar" aria-label="颜色导航">
         <nav class="side-nav">
           <a class="side-primary-link is-active" href="#color">颜色</a>
           <div class="side-secondary">
@@ -887,6 +889,7 @@
         ["渐变", "值得买红色渐变", "#FF724B—#E62828", "linear-gradient(135deg, #ff724b 0%, #e62828 100%)", "#FE7256—#F04848", "linear-gradient(135deg, #fe7256 0%, #f04848 100%)"],
         ["渐变", "张大妈紫色渐变", "#754FFF—#3825FF", "linear-gradient(91deg, #754fff 1%, #3825ff 100%)", "#8C6DFA—#5546F2", "linear-gradient(91deg, #8c6dfa 1%, #5546f2 100%)"],
       ];
+
 
       const content = document.querySelector(".content");
       const toast = document.querySelector(".toast");
