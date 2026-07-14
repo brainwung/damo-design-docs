@@ -1,0 +1,1388 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>DaMo Design System - 指南</title>
+    <style>
+      :root {
+        --brand: #e62828;
+        --brand-weak: #ffedeb;
+        --text-title: #333333;
+        --text-subtitle: #666666;
+        --text-desc: #999999;
+        --text-link: #447dbd;
+        --line: #eeeeee;
+        --page: #ffffff;
+        --panel: #fafafa;
+        --container: 1140px;
+        --sidebar: 220px;
+        --topbar: 80px;
+        --ok: #00c334;
+        --warn: #ffcb00;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        color: var(--text-title);
+        background: var(--page);
+        font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC",
+          "Microsoft YaHei", sans-serif;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        height: var(--topbar);
+        background: #ffffff;
+      }
+
+      .topbar-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: min(100%, var(--container));
+        height: var(--topbar);
+        margin: 0 auto;
+        border-bottom: 1px solid #dcdfe6;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+      }
+
+      .brand-logo {
+        display: block;
+        width: 146px;
+        height: 38px;
+        object-fit: contain;
+      }
+
+      .topnav {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        font-size: 14px;
+      }
+
+      .topnav a {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        padding: 0 24px;
+        color: var(--text-title);
+        font-weight: 400;
+        text-decoration: none;
+      }
+
+      .topnav a:hover,
+      .topnav a.is-active {
+        color: var(--brand);
+      }
+
+      .topnav a.is-active {
+        font-weight: 700;
+      }
+
+      .layout {
+        display: grid;
+        grid-template-columns: var(--sidebar) minmax(0, 1fr);
+        gap: 54px;
+        width: min(100%, var(--container));
+        min-height: calc(100vh - var(--topbar));
+        margin: 0 auto;
+      }
+
+      .sidebar {
+        position: sticky;
+        top: var(--topbar);
+        align-self: start;
+        padding: 54px 30px 42px 0;
+        background: #ffffff;
+      }
+
+      .side-primary-link {
+        display: block;
+        height: 40px;
+        color: var(--text-title);
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 40px;
+        text-decoration: none;
+      }
+
+      .side-section {
+        margin-top: 18px;
+      }
+
+      .side-section-title {
+        margin: 18px 0 0;
+        color: var(--text-desc);
+        font-size: 12px;
+        line-height: 26px;
+      }
+
+      .sidenav {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        overflow: hidden;
+      }
+
+      .sidenav a {
+        display: block;
+        height: 34px;
+        color: var(--text-subtitle);
+        font-size: 14px;
+        line-height: 34px;
+        overflow: hidden;
+        text-decoration: none;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        transition: color 150ms ease-out;
+      }
+
+      .sidenav a:hover,
+      .sidenav a.is-active {
+        color: var(--brand);
+      }
+
+      .main {
+        min-width: 0;
+        padding: 54px 0 90px;
+        scroll-margin-top: calc(var(--topbar) + 24px);
+      }
+
+      .doc-header {
+        margin-bottom: 42px;
+      }
+
+      .doc-title {
+        margin: 0;
+        color: var(--text-title);
+        font-size: 28px;
+        font-weight: 400;
+        line-height: 1;
+      }
+
+      .doc-header p {
+        margin: 12px 0 0;
+        color: var(--text-subtitle);
+        font-size: 14px;
+        line-height: 1.7;
+      }
+
+      .doc-meta {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        width: 100%;
+        margin-top: 24px;
+        padding: 6px 18px;
+        border-radius: 4px;
+        color: var(--text-subtitle);
+        background: var(--brand-weak);
+        font-size: 13px;
+      }
+
+      .guide-content {
+        display: grid;
+        gap: 64px;
+        min-width: 0;
+      }
+
+      .guide-section,
+      .guide-subsection {
+        min-width: 0;
+        scroll-margin-top: 108px;
+      }
+
+      .section-title {
+        margin-bottom: 24px;
+      }
+
+      .section-title h2 {
+        margin: 0;
+        color: var(--text-title);
+        font-size: 24px;
+        font-weight: 400;
+        line-height: 1.35;
+      }
+
+      .section-title h3 {
+        margin: 0;
+        color: var(--text-title);
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 1.45;
+      }
+
+      .section-title p,
+      .body-text {
+        margin: 12px 0 0;
+        color: var(--text-subtitle);
+        font-size: 14px;
+        line-height: 1.75;
+      }
+
+      .guide-subsection + .guide-subsection {
+        margin-top: 48px;
+      }
+
+      .principle-grid,
+      .spec-grid,
+      .example-grid,
+      .transition-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 36px;
+      }
+
+      .principle-card,
+      .spec-item,
+      .example-card,
+      .motion-card,
+      .transition-item {
+        min-width: 0;
+      }
+
+      .principle-visual,
+      .spec-visual,
+      .example-visual,
+      .motion-visual {
+        display: grid;
+        place-items: center;
+        height: 150px;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        background: #ffffff;
+        overflow: hidden;
+      }
+
+      .principle-card h3,
+      .spec-item h3,
+      .example-card h3,
+      .motion-card h3,
+      .transition-item h3 {
+        margin: 14px 0 0;
+        color: var(--text-title);
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 1.5;
+      }
+
+      .principle-card p,
+      .spec-item p,
+      .example-card p,
+      .motion-card p,
+      .transition-item p {
+        margin: 6px 0 0;
+        color: var(--text-subtitle);
+        font-size: 13px;
+        line-height: 1.7;
+      }
+
+      .mark-cluster {
+        position: relative;
+        width: 72px;
+        height: 72px;
+      }
+
+      .mark-dot,
+      .mark-square,
+      .mark-ring {
+        position: absolute;
+        background: var(--brand);
+      }
+
+      .mark-dot {
+        width: 22px;
+        height: 22px;
+        border-radius: 999px;
+      }
+
+      .mark-square {
+        width: 22px;
+        height: 22px;
+        border-radius: 3px;
+      }
+
+      .mark-ring {
+        width: 34px;
+        height: 34px;
+        border: 8px solid var(--brand);
+        border-radius: 8px;
+        background: #ffffff;
+      }
+
+      .mark-cluster.is-consistent .mark-dot:nth-child(1) {
+        left: 11px;
+        top: 25px;
+        background: #111111;
+      }
+
+      .mark-cluster.is-consistent .mark-dot:nth-child(2) {
+        left: 33px;
+        top: 25px;
+      }
+
+      .mark-cluster.is-atomic .mark-ring {
+        left: 19px;
+        top: 19px;
+      }
+
+      .mark-cluster.is-atomic .mark-dot {
+        left: 29px;
+        top: 29px;
+        width: 14px;
+        height: 14px;
+        background: #333333;
+      }
+
+      .mark-cluster.is-hierarchy .mark-dot:nth-child(1) {
+        left: 24px;
+        top: 8px;
+      }
+
+      .mark-cluster.is-hierarchy .mark-dot:nth-child(2),
+      .mark-cluster.is-hierarchy .mark-dot:nth-child(3) {
+        top: 40px;
+        background: #111111;
+      }
+
+      .mark-cluster.is-hierarchy .mark-dot:nth-child(2) {
+        left: 14px;
+      }
+
+      .mark-cluster.is-hierarchy .mark-dot:nth-child(3) {
+        left: 38px;
+      }
+
+      .mark-cluster.is-scene .mark-square:nth-child(1),
+      .mark-cluster.is-scene .mark-square:nth-child(2) {
+        background: #ffffff;
+        border: 6px solid var(--text-title);
+      }
+
+      .mark-cluster.is-scene .mark-square:nth-child(1) {
+        left: 13px;
+        top: 31px;
+      }
+
+      .mark-cluster.is-scene .mark-square:nth-child(2) {
+        left: 37px;
+        top: 17px;
+        border-color: var(--brand);
+      }
+
+      .mark-cluster.is-extend .mark-square:nth-child(1) {
+        left: 14px;
+        top: 17px;
+        height: 40px;
+      }
+
+      .mark-cluster.is-extend .mark-square:nth-child(2) {
+        left: 43px;
+        top: 40px;
+        width: 16px;
+        height: 16px;
+      }
+
+      .mark-cluster.is-device .mark-dot:nth-child(1),
+      .mark-cluster.is-device .mark-dot:nth-child(2) {
+        top: 18px;
+      }
+
+      .mark-cluster.is-device .mark-dot:nth-child(1) {
+        left: 18px;
+      }
+
+      .mark-cluster.is-device .mark-dot:nth-child(2) {
+        left: 42px;
+      }
+
+      .mark-cluster.is-device .mark-square {
+        left: 26px;
+        top: 44px;
+        width: 34px;
+        height: 12px;
+        background: var(--text-title);
+      }
+
+      .readability-demo {
+        display: grid;
+        gap: 36px;
+      }
+
+      .readability-demo .guide-figure {
+        display: flex;
+        justify-content: center;
+      }
+
+      .readability-demo .guide-image {
+        width: min(var(--image-width, 100%), 52%);
+      }
+
+      .readability-demo .guide-image.is-quarter {
+        width: min(var(--image-width, 100%), 20%);
+      }
+
+      .visual-row {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 36px;
+        align-items: center;
+      }
+
+      .reading-distance {
+        position: relative;
+        height: 190px;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        background: #ffffff;
+        overflow: hidden;
+      }
+
+      .head {
+        position: absolute;
+        left: 74px;
+        top: 52px;
+        width: 78px;
+        height: 78px;
+        border: 3px solid var(--text-title);
+        border-right-color: transparent;
+        border-radius: 50% 45% 45% 50%;
+      }
+
+      .head::before {
+        position: absolute;
+        right: -18px;
+        top: 34px;
+        width: 30px;
+        height: 18px;
+        border-right: 3px solid var(--text-title);
+        border-bottom: 3px solid var(--text-title);
+        border-radius: 0 0 12px 0;
+        content: "";
+      }
+
+      .view-cone {
+        position: absolute;
+        left: 156px;
+        top: 70px;
+        width: 360px;
+        height: 50px;
+        background: #ffedeb;
+        clip-path: polygon(0 45%, 100% 0, 100% 100%, 0 55%);
+      }
+
+      .text-target {
+        position: absolute;
+        right: 76px;
+        top: 64px;
+        display: grid;
+        place-items: center;
+        width: 42px;
+        height: 42px;
+        border-radius: 4px;
+        color: #ffffff;
+        background: var(--brand);
+        font-size: 24px;
+        font-weight: 700;
+      }
+
+      .distance-label {
+        position: absolute;
+        left: 240px;
+        bottom: 34px;
+        color: var(--brand);
+        font-size: 12px;
+      }
+
+      .type-measure {
+        display: grid;
+        place-items: center;
+        height: 180px;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        background: #ffffff;
+      }
+
+      .measure-chip {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        height: 72px;
+        padding: 0 30px;
+        border-radius: 6px;
+        color: #ffffff;
+        background: var(--brand);
+        font-size: 38px;
+        font-weight: 700;
+        line-height: 72px;
+      }
+
+      .measure-chip::before,
+      .measure-chip::after {
+        position: absolute;
+        left: -82px;
+        color: var(--brand);
+        font-size: 12px;
+        font-weight: 400;
+        white-space: nowrap;
+        content: attr(data-before);
+      }
+
+      .measure-chip::before {
+        top: 8px;
+      }
+
+      .measure-chip::after {
+        top: 48px;
+        content: attr(data-after);
+      }
+
+      .contrast-demo,
+      .tap-demo {
+        display: grid;
+        place-items: center;
+        height: 180px;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        background: #ffffff;
+      }
+
+      .contrast-circles {
+        position: relative;
+        width: 150px;
+        height: 96px;
+      }
+
+      .contrast-circles span {
+        position: absolute;
+        top: 0;
+        display: grid;
+        place-items: center;
+        width: 96px;
+        height: 96px;
+        border-radius: 999px;
+        color: #ffffff;
+        font-size: 32px;
+        font-weight: 700;
+      }
+
+      .contrast-circles span:first-child {
+        left: 0;
+        background: var(--brand);
+        opacity: 0.75;
+      }
+
+      .contrast-circles span:last-child {
+        right: 0;
+        background: #111111;
+      }
+
+      .tap-target {
+        position: relative;
+        width: 84px;
+        height: 84px;
+        border-radius: 10px;
+        background: var(--brand);
+      }
+
+      .tap-target::before,
+      .tap-target::after {
+        position: absolute;
+        background: #8a0000;
+        content: "";
+      }
+
+      .tap-target::before {
+        left: -32px;
+        top: 0;
+        width: 112px;
+        height: 1px;
+      }
+
+      .tap-target::after {
+        left: 0;
+        top: -24px;
+        width: 1px;
+        height: 132px;
+      }
+
+      .tap-target span {
+        position: absolute;
+        left: -76px;
+        top: 28px;
+        color: var(--brand);
+        font-size: 13px;
+      }
+
+      .motion-list {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 16px;
+        margin: 0;
+        padding-left: 18px;
+        color: var(--text-subtitle);
+        font-size: 14px;
+        line-height: 1.7;
+      }
+
+      #motion .motion-list + .guide-subsection {
+        margin-top: 42px;
+      }
+
+      #icon-intro .motion-list + .guide-subsection {
+        margin-top: 40px;
+      }
+
+      .motion-table-wrap {
+        max-width: 100%;
+        min-width: 0;
+        overflow-x: auto;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+      }
+
+      .motion-table {
+        width: 100%;
+        min-width: 680px;
+        border-collapse: collapse;
+      }
+
+      .motion-table th,
+      .motion-table td {
+        padding: 18px;
+        border-bottom: 1px solid var(--line);
+        color: var(--text-subtitle);
+        font-size: 14px;
+        text-align: left;
+      }
+
+      .motion-table th {
+        color: var(--text-title);
+        background: var(--panel);
+        font-weight: 700;
+      }
+
+      .motion-table th + th,
+      .motion-table td + td {
+        border-left: 1px solid var(--line);
+      }
+
+      .motion-table tr:last-child td {
+        border-bottom: 0;
+      }
+
+      .motion-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 36px;
+      }
+
+      .motion-visual {
+        position: relative;
+      }
+
+      .motion-curve {
+        position: absolute;
+        width: 86%;
+        height: 70%;
+        border-top: 3px solid var(--brand);
+        border-radius: 90% 10% 0 0;
+      }
+
+      .motion-card:first-child .motion-curve {
+        right: -22px;
+        bottom: -34px;
+        transform: rotate(-12deg);
+      }
+
+      .motion-card:last-child .motion-curve {
+        left: -22px;
+        bottom: -34px;
+        transform: rotate(12deg) scaleX(-1);
+      }
+
+      .motion-curve::after {
+        position: absolute;
+        right: -4px;
+        top: -7px;
+        width: 0;
+        height: 0;
+        border-top: 7px solid transparent;
+        border-bottom: 7px solid transparent;
+        border-left: 12px solid var(--brand);
+        content: "";
+      }
+
+      .duration-grid,
+      .transition-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .duration-grid {
+        display: grid;
+        gap: 22px;
+      }
+
+      .transition-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .transition-item {
+        padding-top: 6px;
+      }
+
+      .icon-specs {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 24px;
+      }
+
+      .grid-icon {
+        position: relative;
+        width: 96px;
+        height: 96px;
+        background:
+          linear-gradient(#eeeeee 1px, transparent 1px),
+          linear-gradient(90deg, #eeeeee 1px, transparent 1px);
+        background-size: 12px 12px;
+      }
+
+      .grid-icon::after {
+        position: absolute;
+        inset: var(--shape-inset, 8px);
+        border: 1px solid rgba(230, 40, 40, 0.65);
+        background: rgba(230, 40, 40, 0.08);
+        content: "";
+      }
+
+      .grid-icon.is-circle::after {
+        border-radius: 999px;
+      }
+
+      .grid-icon.is-vertical::after {
+        inset: 8px 20px;
+      }
+
+      .grid-icon.is-horizontal::after {
+        inset: 20px 8px;
+      }
+
+      .example-visual {
+        height: 170px;
+      }
+
+      .example-icon {
+        width: 58px;
+        height: 58px;
+        object-fit: contain;
+      }
+
+      .example-icon.is-large {
+        width: 92px;
+        height: 92px;
+      }
+
+      .example-icon.is-small {
+        width: 46px;
+        height: 46px;
+      }
+
+      .example-strip {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .example-footer {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        height: 34px;
+        margin-top: -34px;
+        padding: 0 18px;
+        color: #ffffff;
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .example-card.is-do .example-footer {
+        background: var(--ok);
+      }
+
+      .example-card.is-warn .example-footer {
+        background: var(--warn);
+      }
+
+      .example-card.is-dont .example-footer {
+        background: var(--brand);
+      }
+
+      .example-card .example-visual {
+        padding-bottom: 34px;
+      }
+
+      .footer-icon {
+        width: 14px;
+        height: 14px;
+      }
+
+      .figure-grid {
+        display: grid;
+        gap: 24px;
+        align-items: start;
+      }
+
+      .figure-grid.is-principles {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .figure-grid.is-specs {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 20px;
+      }
+
+      .figure-grid.is-specs .guide-figure {
+        display: flex;
+        justify-content: center;
+      }
+
+      .figure-grid.is-specs .guide-image {
+        width: min(var(--image-width, 126px), 126px);
+      }
+
+      .figure-grid.is-system {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .figure-stack {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 36px;
+      }
+
+      .visual-row.is-readable {
+        grid-template-columns: 1fr;
+      }
+
+      .motion-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .guide-figure {
+        min-width: 0;
+        margin: 0;
+      }
+
+      .guide-image {
+        display: block;
+        width: var(--image-width, auto);
+        max-width: 100%;
+        height: auto;
+      }
+
+      .w-153 {
+        --image-width: 153px;
+      }
+
+      .w-157 {
+        --image-width: 157px;
+      }
+
+      .w-218 {
+        --image-width: 218px;
+      }
+
+      .w-259 {
+        --image-width: 259px;
+      }
+
+      .w-480 {
+        --image-width: 480px;
+      }
+
+      .w-500 {
+        --image-width: 500px;
+      }
+
+      .w-750 {
+        --image-width: 750px;
+      }
+
+      .w-767 {
+        --image-width: 767px;
+      }
+
+      .w-829 {
+        --image-width: 829px;
+      }
+
+      @media (max-width: 900px) {
+        :root {
+          --sidebar: 100%;
+        }
+
+        .topbar-inner,
+        .layout {
+          width: 100%;
+          padding-right: 18px;
+          padding-left: 18px;
+        }
+
+        .topnav a {
+          padding: 0 12px;
+        }
+
+        .topnav a:nth-child(n + 3) {
+          display: none;
+        }
+
+        .layout {
+          display: block;
+        }
+
+        .sidebar {
+          position: relative;
+          top: 0;
+          height: auto;
+          padding: 24px 0 18px;
+          border-bottom: 1px solid var(--line);
+        }
+
+        .sidenav {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        }
+
+        .main {
+          padding: 36px 0 72px;
+        }
+
+        .principle-grid,
+        .spec-grid,
+        .example-grid,
+        .motion-grid,
+        .visual-row {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .icon-specs {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .motion-list {
+          grid-template-columns: 1fr;
+        }
+
+        .figure-grid.is-principles,
+        .figure-grid.is-system {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .figure-grid.is-specs {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .motion-grid,
+        .visual-row.is-readable {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 520px) {
+        .brand-logo {
+          width: 118px;
+          height: auto;
+        }
+
+        .topnav {
+          font-size: 13px;
+        }
+
+        .principle-grid,
+        .spec-grid,
+        .example-grid,
+        .motion-grid,
+        .visual-row,
+        .icon-specs,
+        .figure-grid.is-principles,
+        .figure-grid.is-specs,
+        .figure-grid.is-system,
+        .figure-stack {
+          grid-template-columns: 1fr;
+        }
+
+        .readability-demo .guide-image {
+          width: min(var(--image-width, 100%), 100%);
+        }
+
+        .readability-demo .guide-image.is-quarter {
+          width: min(var(--image-width, 100%), 64%);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar-inner">
+        <a class="brand" href="./index.html" aria-label="DaMo Design System">
+          <img class="brand-logo" src="./image/zdm-logo.svg" alt="什么值得买" />
+        </a>
+        <nav class="topnav" aria-label="顶部导航">
+          <a href="./index.html">颜色</a>
+          <a href="./icons.html">图标库</a>
+          <a href="./index.html#usage">资源</a>
+          <a class="is-active" href="./guide.html">指南</a>
+        </nav>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="sidebar" aria-label="指南导航">
+        <nav class="side-nav">
+          <a class="side-primary-link is-active" href="#guide">指南</a>
+          <div class="side-secondary">
+            <div class="side-section">
+              <p class="side-section-title">介绍</p>
+              <ul class="sidenav">
+                <li><a class="is-active" href="#principles">设计原理</a></li>
+                <li><a href="#readability">可读性</a></li>
+              </ul>
+            </div>
+            <div class="side-section">
+              <p class="side-section-title">动效</p>
+              <ul class="sidenav">
+                <li><a href="#motion">动效</a></li>
+                <li><a href="#easing">缓动类型</a></li>
+                <li><a href="#duration">持续时间</a></li>
+                <li><a href="#transition">应用转场动画</a></li>
+              </ul>
+            </div>
+            <div class="side-section">
+              <p class="side-section-title">图标</p>
+              <ul class="sidenav">
+                <li><a href="#icon-intro">系统图标</a></li>
+                <li><a href="#icon-rules">设计原则</a></li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </aside>
+
+      <main class="main" id="guide">
+        <section class="doc-header">
+          <h1 class="doc-title">Guide 指南</h1>
+          <p>
+            从 DaMo Design System 的介绍页整理而来，包含设计原理、动效和图标三个部分。
+            页面保留设计稿的信息结构，并转换成当前文档站的静态 HTML 风格。
+          </p>
+          <p class="doc-meta">Figma 节点：DaMo Design System / Introduce 介绍 / node-id: 810:5909</p>
+        </section>
+
+        <div class="guide-content">
+          <section class="guide-section" id="principles">
+            <div class="section-title">
+              <h2>DaMo UI kit</h2>
+              <p>
+                DaMo组件库包含了用于创建应用的UI组件、模板、实例和其他资源。DaMo设计体系深度承载「值得买」服务核心理念，作为设计规范的核心，它有助于将值得买的业务与计语言统一对齐。请参考这些原则来指导你的设计。
+              </p>
+            </div>
+
+            <div class="guide-subsection">
+              <div class="section-title">
+                <h3>设计原理</h3>
+                <p>
+                  设计原理是指导设计过程中决策和操作的一系列基本原则和规则，它们帮助设计师在视觉、功能、体验等方面做出合适的选择，从而确保设计的有效性和美感。设计原理不仅涉及视觉元素的搭配，还涵盖了用户体验、交互、可访问性等多个方面。
+                </p>
+              </div>
+              <div class="figure-grid is-principles">
+                <figure class="guide-figure">
+                  <img class="guide-image w-480" src="./image/part.png" alt="一致性构建" />
+                </figure>
+                <figure class="guide-figure">
+                  <img class="guide-image w-480" src="./image/part-1.png" alt="原子化递进" />
+                </figure>
+                <figure class="guide-figure">
+                  <img class="guide-image w-480" src="./image/part-2.png" alt="视觉层次与信息架构分明" />
+                </figure>
+                <figure class="guide-figure">
+                  <img class="guide-image w-480" src="./image/part-3.png" alt="可维护性与扩展性" />
+                </figure>
+                <figure class="guide-figure">
+                  <img class="guide-image w-480" src="./image/part-4.png" alt="场景化匹配" />
+                </figure>
+                <figure class="guide-figure">
+                  <img class="guide-image w-480" src="./image/part-5.png" alt="多端体验跟进" />
+                </figure>
+              </div>
+            </div>
+          </section>
+
+          <section class="guide-section" id="readability">
+            <div class="section-title">
+              <h2>可读性</h2>
+              <p>在设计产品时，我们必须从用户的角度考虑所有可能性。确保无论是色盲、视力问题等个人限制，还是慢速网络连接等环境限制，都能平等地访问信息并获得相应的利益。</p>
+            </div>
+            <div class="readability-demo">
+              <div class="guide-subsection" id="font-size">
+                <div class="section-title">
+                  <h3>字号</h3>
+                  <p>考虑到显示屏阅读距离（50厘米）和最佳阅读角度（0.3），我们将基础字体大小定为14，以确保在大多数常见显示器上提供最佳的用户阅读效率。</p>
+                </div>
+                <figure class="guide-figure">
+                  <img class="guide-image w-829" src="./image/Group 11.png" alt="字号与阅读距离示意" />
+                </figure>
+              </div>
+
+              <div class="visual-row is-readable">
+                <div class="guide-subsection" id="line-height">
+                  <div class="section-title">
+                    <h3>行高</h3>
+                    <p>我们推荐的基础字体大小为14，对应的行高为21。我们根据使用场景定义了1.2x、1.5x、1.66x、1.8x的行高倍数，根据具体情况自由定义。建议在设计系统中（展示页面除外），字体比例的选择应控制在3到5种之间，并保持适度的约束原则。</p>
+                  </div>
+                  <figure class="guide-figure">
+                    <img class="guide-image w-767" src="./image/Group 12.png" alt="行高示意" />
+                  </figure>
+                </div>
+
+                <div class="guide-subsection" id="contrast">
+                  <div class="section-title">
+                    <h3>对比度</h3>
+                    <p>大文本的对比度比率应至少为3.0:1，小文本的对比度比率应至少为4.5:1。对于装饰性图片和非活动状态，没有标准的对比度比率。</p>
+                    <p>颜色对比网站：https://contrast-ratio.com/</p>
+                  </div>
+                  <figure class="guide-figure">
+                    <img class="guide-image w-259 is-quarter" src="./image/Group 13.png" alt="对比度示意" />
+                  </figure>
+                </div>
+              </div>
+
+              <div class="guide-subsection" id="tap-area">
+                <div class="section-title">
+                  <h3>点击区域</h3>
+                  <p>定义能准确点击的最小点击区域：44 * 44px。小于这个范围点击不灵敏，体验较差。对于比这个范围小的可点击按钮，周围需要用透明区域填充后再输出切图。</p>
+                </div>
+                <figure class="guide-figure">
+                  <img class="guide-image w-218 is-quarter" src="./image/Frame 14.png" alt="点击区域示意" />
+                </figure>
+              </div>
+            </div>
+          </section>
+
+          <section class="guide-section" id="motion">
+            <div class="section-title">
+              <h2>动效</h2>
+              <p>动效设计是提升用户体验、增强界面趣味性和引导用户操作的重要手段</p>
+            </div>
+            <ul class="motion-list">
+              <li>引导用户操作：通过动效帮助用户理解如何进行下一步操作。</li>
+              <li>建立层级结构：合适的动画可以帮助用户明确界面及元素之间的层级关系。</li>
+              <li>增强反馈和理解：动效可以告诉用户当前操作的状态。</li>
+              <li>过渡连续流畅：动效设计可以保持场景转换的平滑性，避免生硬的转场。</li>
+              <li>集中用户注意力：通过动效将用户的注意力集中在重要元素上</li>
+            </ul>
+
+            <div class="guide-subsection">
+              <div class="section-title">
+                <h3>缓动和持续时间对照表</h3>
+              </div>
+              <div class="motion-table-wrap">
+                <table class="motion-table">
+                  <thead>
+                    <tr><th>缓动</th><th>持续时间</th><th>过渡类型</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>强调</td><td>500ms</td><td>在屏幕上开始和结束</td></tr>
+                    <tr><td>强调减速</td><td>400ms</td><td>进入屏幕</td></tr>
+                    <tr><td>强调加速</td><td>200ms</td><td>退出屏幕</td></tr>
+                    <tr><td>标准</td><td>300ms</td><td>在屏幕上开始和结束</td></tr>
+                    <tr><td>标准减速</td><td>250ms</td><td>进入屏幕</td></tr>
+                    <tr><td>标准加速</td><td>200ms</td><td>退出屏幕</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+          <section class="guide-section" id="easing">
+            <div class="section-title">
+              <h2>缓动类型</h2>
+              <p>
+                在物理世界中，物体不会瞬间开始或停止。相反，它们需要时间来加速和减速。没有缓和的过渡看起来僵硬而机械，而有缓和的过渡看起来更自然 缓动类型的选择基于屏幕上的移动关系。强调缓动推荐用于大多数过渡效果。标准缓动可以用于需要快速的小型实用过渡效果。
+              </p>
+            </div>
+            <div class="motion-grid">
+              <article class="motion-card">
+                <figure class="guide-figure">
+                  <img class="guide-image w-750" src="./image/Frame 10.png" alt="强调减速缓动曲线" />
+                </figure>
+                <h3>强调减速缓动</h3>
+                <p>以峰值速度开始，然后缓慢地停止，通常用于进入屏幕的效果</p>
+              </article>
+              <article class="motion-card">
+                <figure class="guide-figure">
+                  <img class="guide-image w-750" src="./image/Frame 11.png" alt="强调加速缓动曲线" />
+                </figure>
+                <h3>强调加速缓动</h3>
+                <p>从静止开始，以峰值速度结束，通常用于退出屏幕的效果</p>
+              </article>
+            </div>
+          </section>
+
+          <section class="guide-section" id="duration">
+            <div class="section-title">
+              <h2>持续时间</h2>
+              <p>过渡的持续时间应避免过长或过短，以免让用户感觉在等待。合适的持续时间与缓动结合能够创造平滑且响应迅速的过渡效果</p>
+            </div>
+            <div class="duration-grid">
+              <article class="transition-item">
+                <h3>过渡组件的尺寸</h3>
+                <p>覆盖小区域的过渡持续时间较短，而覆盖大区域的过渡则持续时间较长。随着过渡区域的增大或缩小，持续时间的变化需保持一致的速度感。</p>
+              </article>
+              <article class="transition-item">
+                <h3>进入与退出过渡</h3>
+                <p>退出、关闭或折叠元素的过渡应使用较短的持续时间，因为它们需要较少的用户关注，转换速度较快。而进入屏幕或保持不变的过渡则应使用更长的持续时间，以帮助用户将注意力集中在屏幕上的新内容上。</p>
+              </article>
+            </div>
+          </section>
+
+          <section class="guide-section" id="transition">
+            <div class="section-title">
+              <h2>应用转场动画</h2>
+              <p>精心设计的转场动画应具有以下特征：</p>
+            </div>
+            <div class="transition-grid">
+              <article class="transition-item"><h3>遵循无障碍设置</h3><p>大多数平台都设有简化的动画设置，以帮助对动作敏感的用户</p></article>
+              <article class="transition-item"><h3>一致的过渡类型</h3><p>持续应用正确的过渡类型有助于让应用程序感觉具有凝聚力并且使用起来可预测</p></article>
+              <article class="transition-item"><h3>骨架图加载</h3><p>UI 元素在转换过程中保持连贯和稳定。避免内容在加载时移动位置或立即弹出。这可能会分散注意力并让人感到沮丧。</p></article>
+              <article class="transition-item"><h3>避免突兀的跳切</h3><p>跳切通常应避免作为默认设置，因为它们可能会让人感到困惑。从一个屏幕立即转换到另一个屏幕不会给用户提供任何线索来帮助他们自己定位</p></article>
+              <article class="transition-item"><h3>连贯一致的空间模型</h3><p>过渡用于建立连贯的空间模型。这有助于用户了解应用程序的物理布局</p></article>
+              <article class="transition-item"><h3>统一方向</h3><p>过渡应具有统一的移动方向。元素被分组并沿着主轴移动，而不是朝独立的方向移动。只有像英雄图像这样的重要元素在整个过渡过程中保持不变。这有助于引导用户的注意力。</p></article>
+              <article class="transition-item"><h3>利落的淡出</h3><p>在淡入新内容之前完全淡出内容。这避免了部分透明元素的重叠而导致分散注意力和混乱的框架。 如果需要发生交叉淡入淡出，请保持快速并在过渡最快的部分将其隐藏。</p></article>
+              <article class="transition-item"><h3>转场动画要简单</h3><p>过渡效果不适用于高度风格化的动作</p></article>
+            </div>
+          </section>
+
+          <section class="guide-section" id="icon-intro">
+            <div class="section-title">
+              <h2>图标</h2>
+              <p>
+                图标在界面中起着重要的导航、提示和交互作用，使用户能够轻松地执行特定的操作或访问相关功能。图标需要直观传达其功能含义，确保用户能够迅速识别并理解界面中的操作选项，从而提升交互体验和使用效率
+              </p>
+            </div>
+            <ul class="motion-list">
+              <li>一致性：一套图标应遵循相同的设计语言，如线条粗细、圆角比例、光影效果等，以保证视觉统一性。</li>
+              <li>可识别性：图标应能直观表达其功能或概念，使用户能快速理解其含义。</li>
+              <li>视觉平衡：有且仅有单一视觉重点。</li>
+              <li>文化和语境：设计时要考虑不同文化背景对图标的理解，避免误解或歧义。</li>
+            </ul>
+
+            <div class="guide-subsection">
+              <div class="section-title">
+                <h3>系统图标</h3>
+                <p>根据Material Design icon规范优化而来，保证视觉大小一致。 内容应该保持在活动区域以内，如有必要，根据视觉效果，内容可以延展至安全区域之中，但不能超出。</p>
+              </div>
+              <div class="figure-grid is-specs">
+                <figure class="guide-figure">
+                  <img class="guide-image w-157" src="./image/Group 19.png" alt="最外框为 24*24pt" />
+                </figure>
+                <figure class="guide-figure">
+                  <img class="guide-image w-157" src="./image/Group 20.png" alt="方形区域为 20*20pt" />
+                </figure>
+                <figure class="guide-figure">
+                  <img class="guide-image w-157" src="./image/Group 21.png" alt="圆形区域为 20*20pt" />
+                </figure>
+                <figure class="guide-figure">
+                  <img class="guide-image w-153" src="./image/Group 22.png" alt="竖向矩形为 16*20pt" />
+                </figure>
+                <figure class="guide-figure">
+                  <img class="guide-image w-153" src="./image/Group 23.png" alt="横向矩形为 20*16pt" />
+                </figure>
+              </div>
+            </div>
+
+            <div class="guide-subsection">
+              <div class="figure-grid is-system">
+                <figure class="guide-figure">
+                  <img class="guide-image w-500" src="./image/Group 24.png" alt="系统图标 DO 示例" />
+                </figure>
+                <figure class="guide-figure">
+                  <img class="guide-image w-500" src="./image/Group 25.png" alt="系统图标 Caution 示例" />
+                </figure>
+                <figure class="guide-figure">
+                  <img class="guide-image w-500" src="./image/Group 26.png" alt="系统图标 Don't 示例" />
+                </figure>
+              </div>
+            </div>
+          </section>
+
+          <section class="guide-section" id="icon-rules">
+            <div class="section-title">
+              <h2>设计原则</h2>
+            </div>
+            <div class="figure-stack">
+              <figure class="guide-figure">
+                <img class="guide-image w-750" src="./image/Group 27.png" alt="简化图标 DO 示例" />
+              </figure>
+              <figure class="guide-figure">
+                <img class="guide-image w-750" src="./image/Group 28.png" alt="简化图标 Don't 示例" />
+              </figure>
+              <figure class="guide-figure">
+                <img class="guide-image w-750" src="./image/Group 29.png" alt="图形化图标 DO 示例" />
+              </figure>
+              <figure class="guide-figure">
+                <img class="guide-image w-750" src="./image/Group 30.png" alt="图形化图标 Don't 示例" />
+              </figure>
+              <figure class="guide-figure">
+                <img class="guide-image w-750" src="./image/Group 31.png" alt="保持视觉风格一致 DO 示例" />
+              </figure>
+              <figure class="guide-figure">
+                <img class="guide-image w-750" src="./image/Group 32.png" alt="保持视觉风格一致 Don't 示例" />
+              </figure>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      const links = Array.from(document.querySelectorAll(".sidenav a"));
+      const sections = links
+        .map((link) => document.querySelector(link.getAttribute("href")))
+        .filter(Boolean);
+
+      function updateActiveLink() {
+        let active = sections[0];
+        sections.forEach((section) => {
+          const rect = section.getBoundingClientRect();
+          if (rect.top <= 130) active = section;
+        });
+        if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) {
+          active = sections[sections.length - 1];
+        }
+        links.forEach((link) => {
+          link.classList.toggle("is-active", link.getAttribute("href") === "#" + active.id);
+        });
+      }
+
+      window.addEventListener("scroll", updateActiveLink, { passive: true });
+      window.addEventListener("resize", updateActiveLink);
+      updateActiveLink();
+    </script>
+  </body>
+</html>
